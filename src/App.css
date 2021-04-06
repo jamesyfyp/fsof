@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+  background-color: #BEE9E8;
+  min-width: 100%;
+  min-height: 200%;
+}
+
+button:focus {
+  outline-color: #1B4965;
+}
+
+input:focus {
+  outline-color: #1B4965;
+}
+
+textarea:focus {
+  outline-color: #1B4965;
+}
+
+a {
+  text-decoration: none;
+}
+ 
+
+
+
+
+
+
