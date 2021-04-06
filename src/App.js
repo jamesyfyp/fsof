@@ -8,6 +8,7 @@ import Services from './views/services';
 import References from './views/references';
 import Contact from './views/contact';
 import Home from './views/home';
+import UnderConstruction from './views/underConstruction';
 
 //*import { element } from 'prop-types';
 
@@ -24,6 +25,7 @@ function App() {
         <Affiliates path="/affiliates" />
         <References path="/references" />
         <Contact path="/contact" />
+        <UnderConstruction path="/underconstruction" />
       </Router>
     </div>
   );
