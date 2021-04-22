@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeaderImgSrc from '../images/headerImg1.png';
-import ContactButton from './contactbutton'
+import LoginButton from './loginButton'
 
 const Heading = styled.div `
   background-image: url(${HeaderImgSrc});
@@ -34,7 +34,7 @@ const head = (props) => {
     return(
         <Heading>
             <CompanyName>FLEET SERVICES OF FLORIDA</CompanyName>
-            <ContactButton />
+            <LoginButton />
         </Heading>
     )
 }
