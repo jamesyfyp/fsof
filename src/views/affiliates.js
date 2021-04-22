@@ -9,15 +9,15 @@ const affiliates = (props) => {
             <Body 
                 id={section.certfiedVendors.id}
                 text ={section.certfiedVendors.text}>    
-            </Body>
-                {section.certfiedVendors.companyName.map((s, i) =>
-            <TileTwo
-              key={i}
-              text={s.text} 
-              img={s.image}
-              imgAlt={s.text}
-            />
-          )}
+            </Body> 
+            {section.certfiedVendors.companyName.map((s, i) =>
+                    <TileTwo
+                        key={i}
+                        text={s.text} 
+                        img={s.image}
+                        imgAlt={s.text}
+                    />
+                )}   
         </div>
     )    
 };

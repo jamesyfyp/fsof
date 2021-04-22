@@ -10,7 +10,7 @@ const Tile = styled.div`
     width: 220px;
     height: 160px;
     border-radius: 5px;
-    margin: 20px 20px 50vh 20px;
+    margin: 20px 20px ${window.location.pathname == '/affiliates' ? '50vh' : '30px'} 20px;
   `
   
 const Tileimg = styled.img`
