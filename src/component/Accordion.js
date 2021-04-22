@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Obfuscate from 'react-obfuscate'
 
 const AccordionWrapper = styled.div`
     justify-content: center;
@@ -39,9 +40,9 @@ const Accordion = ({ name, contact, email, num}) => {
             <p>{name}</p>
             </Button>
             <InternalWrapper open={open}>
-                <p><strong>Contact: </strong>{contact}</p>
-                <p><strong>Email: </strong>{email}</p>
-                <p><strong>Phone: </strong>{num}</p>
+                    <p><strong>Contact: </strong>{contact}</p>
+                    <p><strong>Email: </strong><Obfuscate email={email}/></p>
+                    <p><strong>Phone: </strong><Obfuscate tel={num} /></p>
             </InternalWrapper>
         </AccordionWrapper>
     );
