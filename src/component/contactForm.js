@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const FormWrapper = styled.div`
@@ -63,79 +63,97 @@ const SubmitButton = styled.button`
     background-color: #CAE9FF;
     color: #1B4965;
 `
-class ContactForm extends React.Component {  
-    constructor(props) {
-        super(props);
-        this.state = {
-            companyName:'',
-            contactName:'',
-            email:'',
-            contactNumber:'',
-            message:'',
-        };
-        
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleClick = this.handleClick.bind(this)           
-    }
-
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.value
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleClick(e) {
-        e.preventDefault();
-        console.log(this.state)
-    }
+function ContactForm(props) {  
     
-
-    render() {  
-        return(
-            <FormWrapper>
-                <Form>
-                    <Lable>Company Name:</Lable><br></br>
-                    <Input
-                        type="text" 
-                        name="companyName"
-                        value={this.state.input}
-                        onChange={this.handleInputChange}></Input><br></br>
-                    <Lable>Contact Name:</Lable><br></br>
-                    <Input 
-                        type="text" 
-                        name="contactName"
-                        value={this.state.input}
-                        onChange={this.handleInputChange}></Input><br></br>
-                    <Lable>Email:</Lable><br></br>
-                    <Input 
-                        type="email" 
-                        name="email"
-                        value={this.state.input}
-                        onChange={this.handleInputChange}></Input><br></br>
-                    <Lable>Contact Number:</Lable><br></br>
-                    <Input 
-                        type="text" 
-                        name="contactNumber"
-                        value={this.state.input}
-                        onChange={this.handleInputChange}></Input><br></br>
-                    <Lable>Message:</Lable><br></br>
-                    <TextArea
-                        type="text" 
-                        name="message"
-                        value={this.state.input}
-                        onChange={this.handleInputChange}/><br></br>
-                    <SubmitButton
-                        onClick={this.handleClick} 
-                        type="submit" 
-                        value="Submit"
-                        >Say Hello!</SubmitButton>
-                </Form>       
-            </FormWrapper>
-        );
+    const [companyName, setCompanyName] = useState('');
+    const [contactName, setContactName] = useState('');
+    const [email, setEmail] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
+    const [message, setMessage] = useState('');
+     
+    
+    const subForm = async(e) => {
+        e.preventDefault();
+        try {
+            const body = {
+                companyname: companyName,
+                contactname: contactName,
+                email: email,
+                contactnumber: contactNumber,
+                message: message
+            };
+            const response = await fetch('http://localhost:5000/lpcontact', {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(body)
+            })
+            console.log(response)
+        } catch (err){
+            console.error(err.message)
+        }
     }
+
+    const handleCompanyNameInput = e => {
+        setCompanyName(e.target.value)
+    }  
+    
+    const handleContactNameInput = e => {
+        setContactName(e.target.value)
+    }   
+
+    const handleEmailInput = e => {
+        setEmail(e.target.value)
+    }   
+
+    const handleContactNumberInput = e => {
+        setContactNumber(e.target.value)
+    }   
+
+    const handleMessageInput = e => {
+        setMessage(e.target.value)
+    }   
+
+    return(
+        <FormWrapper>
+            <Form onSubmit={subForm}>
+                <Lable>Company Name:</Lable><br></br>
+                <Input
+                    type="text" 
+                    name="companyName"
+                    value={companyName}
+                    onChange={handleCompanyNameInput}></Input><br></br>
+                <Lable>Contact Name:</Lable><br></br>
+                <Input 
+                    type="text" 
+                    name="contactName"
+                    value={contactName}
+                    onChange={handleContactNameInput}></Input><br></br>
+                <Lable>Email:</Lable><br></br>
+                <Input 
+                    type="email" 
+                    name="email"
+                    value={email}
+                    onChange={handleEmailInput}></Input><br></br>
+                <Lable>Contact Number:</Lable><br></br>
+                <Input 
+                    type="text" 
+                    name="contactNumber"
+                    value={contactNumber}
+                    onChange={handleContactNumberInput}></Input><br></br>
+                <Lable>Message:</Lable><br></br>
+                <TextArea
+                    type="text" 
+                    name="message"
+                    value={message}
+                    onChange={handleMessageInput}/><br></br>
+                <SubmitButton
+                    onClick={subForm} 
+                    type="submit" 
+                    value="Submit"
+                    >Say Hello!</SubmitButton>
+            </Form>       
+        </FormWrapper>
+    )
+        
 }
 export default ContactForm
