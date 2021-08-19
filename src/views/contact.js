@@ -7,7 +7,7 @@ const contacts = (props) => {
     return(
         <div>
           <Body id={section.contact.id} text={section.contact.text} />
-          <ContactForm/>
+          <ContactForm contacted={props.contacted} setContacted={props.setContacted}/>
         </div>   
     )    
 };

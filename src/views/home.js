@@ -5,15 +5,28 @@ import Affiliates from './affiliates';
 import References from './references';
 
 
-const home = (props) => {
+
+ let Home = (props) =>  {
+    
+    if (props.contacted === false) {
+        return(
+            <div>
+                <Services />
+                <Affiliates />
+                <References />
+                <Contact contacted={props.contacted} setContacted={props.setContacted}/>
+            </div>        
+        );   
+    };
+
     return(
         <div>
             <Services />
             <Affiliates />
             <References />
-            <Contact />
         </div>        
-    )    
+    );   
+      
 };
 
-export default home 
+export default Home 

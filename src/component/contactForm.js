@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import styled from 'styled-components';
+import { navigate } from '@reach/router';
+
+
 
 const FormWrapper = styled.div`
     display:inline-flex;
@@ -63,7 +66,7 @@ const SubmitButton = styled.button`
     background-color: #CAE9FF;
     color: #1B4965;
 `
-function ContactForm(props) {  
+const ContactForm = (props) => {  
     
     const [companyName, setCompanyName] = useState('');
     const [contactName, setContactName] = useState('');
@@ -74,6 +77,8 @@ function ContactForm(props) {
     
     const subForm = async(e) => {
         e.preventDefault();
+        props.setContacted(props.contacted)
+
         try {
             const body = {
                 companyname: companyName,
@@ -90,7 +95,7 @@ function ContactForm(props) {
             console.log(response)
         } catch (err){
             console.error(err.message)
-        }
+        } 
     }
 
     const handleCompanyNameInput = e => {
@@ -115,7 +120,7 @@ function ContactForm(props) {
 
     return(
         <FormWrapper>
-            <Form onSubmit={subForm}>
+            <Form >
                 <Lable>Company Name:</Lable><br></br>
                 <Input
                     type="text" 
@@ -147,10 +152,11 @@ function ContactForm(props) {
                     value={message}
                     onChange={handleMessageInput}/><br></br>
                 <SubmitButton
-                    onClick={subForm} 
-                    type="submit" 
-                    value="Submit"
-                    >Say Hello!</SubmitButton>
+                        onClick={subForm} 
+                        type="submit" 
+                        value="Submit"
+                        >Say Hello!
+                </SubmitButton>
             </Form>       
         </FormWrapper>
     )

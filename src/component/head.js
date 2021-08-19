@@ -34,7 +34,7 @@ const head = (props) => {
     return(
         <Heading>
             <CompanyName>FLEET SERVICES OF FLORIDA</CompanyName>
-            <LoginButton />
+            <LoginButton token={props.token} tokenSet={props.tokenSet} />
         </Heading>
     )
 }

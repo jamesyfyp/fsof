@@ -24,14 +24,27 @@ const NavLink = styled.p`
     
 
 const nav = (props) => {
+    if(props.contacted === false){
+        return(
+        
+            <TopNav>
+                <Link to="/services"><NavLink>Services</NavLink></Link>
+                <Link to="/affiliates"><NavLink>Affiliates</NavLink></Link>
+                <Link to="/references"><NavLink>References</NavLink></Link>
+                <Link to="/contact"><NavLink>Contact</NavLink></Link>
+            </TopNav>
+        ) 
+    }
+
     return(
+        
         <TopNav>
             <Link to="/services"><NavLink>Services</NavLink></Link>
             <Link to="/affiliates"><NavLink>Affiliates</NavLink></Link>
             <Link to="/references"><NavLink>References</NavLink></Link>
-            <Link to="/contact"><NavLink>Contact</NavLink></Link>
         </TopNav>
-    )    
+    ) 
+       
 };
 
 export default nav
