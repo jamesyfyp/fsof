@@ -1,8 +1,6 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { navigate } from '@reach/router';
-
-
 
 const FormWrapper = styled.div`
     display:inline-flex;
@@ -93,6 +91,7 @@ const ContactForm = (props) => {
                 body: JSON.stringify(body)
             })
             console.log(response)
+            navigate('/')
         } catch (err){
             console.error(err.message)
         } 
@@ -118,6 +117,10 @@ const ContactForm = (props) => {
         setMessage(e.target.value)
     }   
 
+    useEffect(()=>{
+
+    }, [companyName, contactName, email, contactNumber, message])
+
     return(
         <FormWrapper>
             <Form >
@@ -126,31 +129,36 @@ const ContactForm = (props) => {
                     type="text" 
                     name="companyName"
                     value={companyName}
-                    onChange={handleCompanyNameInput}></Input><br></br>
+                    onChange={handleCompanyNameInput}
+                    required=""></Input><br></br>
                 <Lable>Contact Name:</Lable><br></br>
                 <Input 
                     type="text" 
                     name="contactName"
                     value={contactName}
-                    onChange={handleContactNameInput}></Input><br></br>
+                    onChange={handleContactNameInput}
+                    required=""></Input><br></br>
                 <Lable>Email:</Lable><br></br>
                 <Input 
                     type="email" 
                     name="email"
                     value={email}
-                    onChange={handleEmailInput}></Input><br></br>
+                    onChange={handleEmailInput}
+                    required=""></Input><br></br>
                 <Lable>Contact Number:</Lable><br></br>
                 <Input 
-                    type="text" 
+                    type="tel" 
                     name="contactNumber"
                     value={contactNumber}
-                    onChange={handleContactNumberInput}></Input><br></br>
+                    onChange={handleContactNumberInput}
+                    required=""></Input><br></br>
                 <Lable>Message:</Lable><br></br>
                 <TextArea
                     type="text" 
                     name="message"
                     value={message}
-                    onChange={handleMessageInput}/><br></br>
+                    onChange={handleMessageInput}
+                    required=""/><br></br>
                 <SubmitButton
                         onClick={subForm} 
                         type="submit" 
