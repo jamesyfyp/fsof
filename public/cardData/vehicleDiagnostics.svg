@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Adobe Illustrator 24.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1152px"
+	 height="1152px" viewBox="0 0 1152 1152" style="enable-background:new 0 0 1152 1152;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#F2F2F2;}
+	.st1{fill:#BFBFBF;stroke:#0D0D0D;stroke-width:30;stroke-miterlimit:10;}
+	.st2{fill:#3B3C40;stroke:#000000;stroke-width:28.4627;stroke-miterlimit:10;}
+	.st3{fill:#6C6F73;stroke:#0D0D0D;stroke-width:20;stroke-miterlimit:10;}
+	.st4{fill:#3B3C40;stroke:#000000;stroke-width:20;stroke-miterlimit:10;}
+	.st5{fill:#BFBFBF;stroke:#000000;stroke-width:20;stroke-miterlimit:10;}
+	.st6{fill:#C2BFB5;stroke:#000000;stroke-width:14.1421;stroke-miterlimit:10;}
+	.st7{fill:#E6E9E4;stroke:#0D0D0D;stroke-width:15;stroke-miterlimit:10;}
+</style>
+<g id="Layer_1">
+	<rect class="st0" width="1152" height="1152"/>
+</g>
+<g id="Layer_2">
+	<rect x="262.01" y="302" class="st1" width="627.99" height="548"/>
+	<path class="st2" d="M129,814.37V337.63c0-37.35,30.28-67.63,67.63-67.63h65.37v612h-65.37C159.28,882,129,851.72,129,814.37z"/>
+	<path class="st2" d="M1023,814.37V337.63c0-37.35-30.28-67.63-67.63-67.63h-65.37v612h65.37C992.72,882,1023,851.72,1023,814.37z"
+		/>
+	<g>
+		<path class="st3" d="M764.5,633.6v45.95c0,12.4-10.05,22.45-22.45,22.45h-29.23c0-26.1-21.15-47.25-47.25-47.25
+			c-26.1,0-47.25,21.15-47.25,47.25h-95.5c0-26.1-21.15-47.25-47.25-47.25c-26.1,0-47.25,21.15-47.25,47.25h-7.18
+			c-18.58,0-33.64-15.06-33.64-33.64V450.73c0-15.31,12.42-27.73,27.73-27.73l189.65,2c26.3,0,40.08,22.71,47.62,47.62l34,103.38
+			h20.4C738.71,576,764.5,601.79,764.5,633.6z"/>
+		<circle class="st4" cx="475.57" cy="702" r="47.25"/>
+		<circle class="st4" cx="665.57" cy="702" r="47.25"/>
+		<path class="st5" d="M563.58,559.13v-35.26c0-9.32,7.55-16.87,16.87-16.87h5.85c29.43,0,53.28,23.85,53.28,53.28v0
+			c0,8.68-7.04,15.72-15.72,15.72h-43.41C571.13,576,563.58,568.45,563.58,559.13z"/>
+		<path class="st5" d="M428.32,552.8V530.2c0-12.82,10.39-23.2,23.2-23.2h57.34c12.82,0,23.2,10.39,23.2,23.2v22.59
+			c0,12.82-10.39,23.2-23.2,23.2h-57.34C438.71,576,428.32,565.61,428.32,552.8z"/>
+		<ellipse class="st6" cx="712.82" cy="622.63" rx="16.5" ry="16"/>
+	</g>
+	<rect x="576" y="350.58" class="st7" width="271.43" height="38"/>
+	<rect x="691.43" y="419.3" class="st7" width="157" height="35"/>
+	<rect x="715.43" y="485.01" class="st7" width="134" height="27"/>
+	<rect x="536.93" y="775.67" class="st7" width="307" height="31"/>
+	<rect x="302.56" y="730.67" class="st7" width="74.94" height="76"/>
+</g>
+</svg>
