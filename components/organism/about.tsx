@@ -1,13 +1,13 @@
 import {Box, jsx, Flex, Heading, Paragraph, Button} from 'theme-ui'
 import Image from "next/image"
-import services from "/public/lpImages/landingPage.svg"
+import services from "/public/landingPage.svg"
 
 export const About = () => {
     return (
         <Box m='auto'sx={{
             width: ['90%', '90%', '100%']
         }}> 
-            <Heading color="grey" m={[1,1.5,2,3,4]} paddingY={[1,1,1,2,2,3]} sx={{
+            <Heading color="reallylight" m={[1,1.5,2,3,4]} paddingY={[1,1,1,2,2,3]} sx={{
                 textAlign: "center",
             }}>
                 Your Complete Fleet Maintenence Soloution
@@ -16,7 +16,7 @@ export const About = () => {
                 flexDirection: ['column', 'column', 'row'],
                 
             }}>
-                <Flex bg="grey" marginRight="2%" marginBottom={[2, 2 ,0]} sx={{
+                <Flex bg="reallylight" marginRight="2%" marginBottom={[2, 2 ,0]} sx={{
                         width: ['100%', '100%', '50%'],
                         borderRadius: "10px",
                         alignItems:"center"

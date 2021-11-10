@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model WalkAround {
+  id               Int      @default(autoincrement()) @id
+  createdAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title            String   @db.VarChar(255)
+}
+
+
+model User {
+ 
+ @@id(fields: [issuer, email])
+ 
+  issuer      String @db.VarChar(255)
+  email       String @db.VarChar(255) 
+  company String @db.VarChar(255) @default("none")
+  type         String @db.VarChar(255) @default("none")
+  role          String @db.VarChar(255)  @default("none")
+  firstName String @db.VarChar(255) @default("")
+  lastName String @db.VarChar(255) @default("")
+
+}
+
+model UserVerifyForm {
+  
+  id                        Int       @id @default(autoincrement())
+  firstName            String @db.VarChar(255)
+  lastName            String @db.VarChar(255)
+  CompanyName  String @db.VarChar(255)
+  PhoneNumber    String @db.VarChar(255)
+  userEmail           String @db.VarChar(255)   
+  userDID              String @db.VarChar(255)
+
+}

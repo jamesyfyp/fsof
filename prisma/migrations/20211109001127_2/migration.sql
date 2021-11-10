@@ -1,0 +1,14 @@
+-- AlterTable
+ALTER TABLE `User` ADD COLUMN `firstName` VARCHAR(255) NOT NULL DEFAULT '',
+    ADD COLUMN `lastName` VARCHAR(255) NOT NULL DEFAULT '',
+    ADD COLUMN `type` VARCHAR(255) NOT NULL DEFAULT 'none',
+    MODIFY `role` VARCHAR(255) NOT NULL DEFAULT 'none';
+
+-- CreateTable
+CREATE TABLE `UserAuthForm` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `formInputs` JSON NOT NULL,
+    `user` JSON NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

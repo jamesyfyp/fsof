@@ -15,7 +15,7 @@ export  const LogoHeading = () => {
             }}>
                 <Link href="/">
                     <a>
-                        <Image src={logo} alt="Fleet Services of Florida" layout="intrinsic"/>
+                        <Image priority={true} src={logo} alt="Fleet Services of Florida" layout="intrinsic"/>
                     </a>
                 </Link>
             </Box>
