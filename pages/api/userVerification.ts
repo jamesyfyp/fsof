@@ -1,5 +1,4 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { brotliDecompressSync } from "zlib";
 import prisma from "../../lib/prisma"
 
 export default async (req: any, res: any) => {

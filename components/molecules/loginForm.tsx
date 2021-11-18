@@ -5,6 +5,8 @@ import { Magic } from 'magic-sdk'
 import { useContext } from 'react'
 import React from 'react'
 import { userContext } from '../../context/userContext'
+import { loadingContext } from '../../context/loading'
+import { Loading } from '../atoms/loading'
 
 interface LoginFormInputs {
     email: string
@@ -13,6 +15,7 @@ interface LoginFormInputs {
 export const LoginForm = ( ) => {
     const Router = useRouter();
     const {user, setUser} = useContext(userContext);
+    const { loading, setLoading} = useContext(loadingContext)
 
     const {
         register,
@@ -22,7 +25,7 @@ export const LoginForm = ( ) => {
     } = useForm<LoginFormInputs>( );
 
     const onSubmit = async (data: LoginFormInputs) => {
-        
+        setLoading(true)
         const did = await new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY)
        .auth
        .loginWithMagicLink({ email: data.email })
@@ -35,12 +38,13 @@ export const LoginForm = ( ) => {
             let data = JSON.parse(dataStr);
             let authed = document.cookie.split('=')[1] === "true" ? true : false;
             setUser( authed, data.role, data.company, data.issuer, data.email, data.name )
+        }).then( () =>{
+            router.push(`${user.company}/${user.role}`)
         })
 
-        router.push(`${user.company}/${user.role}`)
-
     }
-    return(
+    if (loading.loading === false ) {
+        return (
         <Box id="loginForm"p={[1,2]}bg='secondary' as="form" marginY={[1,2,3,4,5]}  onSubmit={handleSubmit(onSubmit)} sx={{
             width: ['80%', '75%', '65%','50%'],
             margin: 'auto',
@@ -64,5 +68,7 @@ export const LoginForm = ( ) => {
             </Button>
             </Flex>
         </Box>
-    )
+        )   
+    }
+    if ( loading.loading === true ) { return(<Loading />)}
 }

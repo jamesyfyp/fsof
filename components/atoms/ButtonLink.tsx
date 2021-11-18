@@ -1,4 +1,4 @@
-import { Button } from "theme-ui"
+import { Button, Spinner } from "theme-ui"
 import Link from "next/link"
 
 interface ButtonLinkInt {

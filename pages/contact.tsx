@@ -1,12 +1,13 @@
 import { NextPage } from "next"
 import { ContactForm } from "../components/molecules/contactForm"
-import { LogoHeading } from "../components/organism/LogoHeading"
+import { LandingPageLayout } from "../components/layouts/landingPageLayout"
 
 const Contact: NextPage = () =>{
     return (
         <>
-        <LogoHeading/>
-        <ContactForm />
+        <LandingPageLayout>
+            <ContactForm />
+        </LandingPageLayout>
         </>
     )
 }
