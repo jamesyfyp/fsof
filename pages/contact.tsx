@@ -1,12 +1,12 @@
 import { NextPage } from "next"
-import { ContactForm } from "../components/molecules/contactForm"
+import { ContactFormComponent } from "../components/molecules/contactForm"
 import { LandingPageLayout } from "../components/layouts/landingPageLayout"
 
 const Contact: NextPage = () =>{
     return (
         <>
         <LandingPageLayout>
-            <ContactForm />
+            <ContactFormComponent />
         </LandingPageLayout>
         </>
     )

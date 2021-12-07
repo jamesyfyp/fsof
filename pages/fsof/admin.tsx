@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import {  } from "@theme-ui/components";
+import { Heading  } from "@theme-ui/components";
 import { useContext } from 'react'
 import { userContext } from '../../context/userContext'
 import { Dashboard } from "../../components/layouts/dashboard";
@@ -12,8 +12,10 @@ const Admin: NextPage = (props: any) =>{
     const {user} = useContext(userContext);
     return(
         <Dashboard >
-            <h1>{user.email}</h1>
+            <Heading>New Users</Heading>
             {props.data.map((x:any, i:any ) => <PendingUserDb props={x} key={i} />)}
+            <Heading>New Customers</Heading>
+            
         </Dashboard>  
     )
 }
@@ -29,10 +31,6 @@ export const getServerSideProps: GetServerSideProps = async ({  res }) => {
     }
     return { props: {data} }
 }    
-
-export const getServerSidePaths = async () =>{
-
-}
 
 export default Admin
 

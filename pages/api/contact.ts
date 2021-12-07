@@ -1,37 +1,41 @@
 /* eslint-disable import/no-anonymous-default-export */
-export default  function  (req: any, res: any) {
-  let nodemailer = require('nodemailer')
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    port: 587,     
-    host: "smtp.gmail.com",
-    secure: false,
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD
+import { json } from "stream/consumers";
+import prisma from "../../lib/prisma"
+
+export default async (req: any, res: any) => {
+  if (req.method === "POST") {
+    const body = await JSON.parse(req.body)
+    const useVerification = await prisma.contactForm.create({
+      data: { 
+        firstName: `${body.firstName}`,
+        lastName: `${body.lastName}`,
+        CompanyName: `${body.CompanyName}`,
+        PhoneNumber: `${body.PhoneNumber}`,
+        userEmail: `${body.userEmail}`,
+        message: ``
       },
-    });
+    }).then((res) => JSON.stringify(res)).then(
+      res.status(200)
+    )
+    res.end();
+  }
+  if (req.method === "GET") {
+    const userVerificationGet = await prisma.contactForm.findMany()
+    res.status(200);
+    res.json(userVerificationGet);
+    res.end();
+  }
+  if (req.method === "DELETE") {
+    let digit  = Number(req.body);
     
-    const mailData = {
-        from: 'jp965052@gmail.com',
-        to: 'james.g.phillips.91@gmail.com', 
-        subject: `Message From ${req.body.data.firstName} ${req.body.data.lastName}`,
-        text: req.body.data.message + " | Sent from: " + req.body.data.email,
-        html: `
-        <div>${req.body.data.companyName}</div>
-        <div>${req.body.data.phoneNumber}</div>
-        <div>${req.body.data.about}</div>
-        <p>Sent from: ${req.body.data.email}</p>`
-    }
-  
-    transporter.sendMail(mailData, function (err: any, info: any) {
-        if(err)
-          console.log(err)
-        else
-          console.log(mailData);
-          res.send('success')
+  const userVerificationDelete = await prisma.userVerifyForm.delete({
+      where: {
+        id: digit
+      }
     })
-  
-    console.log(req.body)
-    
-}
+    res.status(200)
+    res.end()
+  }
+ 
+} 
+

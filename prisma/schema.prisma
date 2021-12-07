@@ -46,3 +46,16 @@ model UserVerifyForm {
   userDID              String @db.VarChar(255)
 
 }
+
+model ContactForm {
+  
+  id                        Int       @id @default(autoincrement())
+  firstName            String @db.VarChar(255)
+  lastName            String @db.VarChar(255)
+  CompanyName  String @db.VarChar(255)
+  PhoneNumber    String @db.VarChar(255)
+  userEmail           String @db.VarChar(255)   
+  message              String @db.VarChar(1000)
+  lastContacted     DateTime @db.DateTime()
+
+}

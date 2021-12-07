@@ -36,13 +36,12 @@ export const PendingUserDb = (props: any) => {
             role: role,
             company: company
         };
-       const post = await fetch("/api/userVerifyAdmin", {
-            method : "PATCH",
+        console.log(upDateBody)
+       const Post = await fetch("/api/userVerifyAdmin", {
+            method : "UPDATE",
             body: JSON.stringify(upDateBody)
-        })
-        if (post.status == 200) {
-            deny()
-        }
+        });
+        router.reload()
     }
     // Com
     if (status === "none") {
