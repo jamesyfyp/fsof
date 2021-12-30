@@ -23,7 +23,7 @@ export const ContactFormComponent = () => {
         setLoading(true)
         submitStatusChange()
           
-          const response = await fetch('/api/contact', {
+          const response = await fetch('/api/contactForm', {
               method: 'POST',
               body: JSON.stringify(data)
           }).then((response) => {if(response.status === 200) { setLoading(false)}} )

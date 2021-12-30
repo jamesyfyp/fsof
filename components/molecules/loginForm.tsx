@@ -3,7 +3,6 @@ import router, { useRouter } from 'next/router'
 import { useForm } from "react-hook-form"
 import { Magic } from 'magic-sdk'
 import { useContext } from 'react'
-import React from 'react'
 import { userContext } from '../../context/userContext'
 import { loadingContext } from '../../context/loading'
 import { Loading } from '../atoms/loading'

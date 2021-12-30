@@ -51,7 +51,14 @@ export const theme: Theme = {
       fontSize: ["12px", "14px", "15px", "18px", "22px", "26px"],
       marginX: "1rem",
       textAlign: "center",
-      color: "accent"
+      color: "reallyLight"
+    },
+    formErrorTire:{
+      fontSize: ["12px", "14px", "15px", "18px", "22px", "26px"],
+      marginX: "1rem",
+      display: "block",
+      textAlign: "left",
+      color: "reallyLight"
     }
   },
   forms: {
@@ -60,6 +67,11 @@ export const theme: Theme = {
       fontSize:  ['12px',"18px","24px", "24px", "28px",],
       fontFamily: "heading",
       background: "primary"
+    },
+    flexCenterTire:{
+      width: "10%",
+      justifySelf: "left",
+      textAlign: "center"
     },
     input: {
       borderColor: "primary",
@@ -79,7 +91,7 @@ export const theme: Theme = {
   buttons: {
     LogoButton: {
       breakpoints: [ '300px' ,'478px', '580px','767px', '991px', '1280px', '1440px', '1920px'],
-      fontSize: ['12px',"18px","24px", "24px", "28px", "30px"],
+      fontSize: ['12px', "14px","18px","24px", "24px", "28px", "30px"],
       fontWeight: 'bold',
       color: 'secondary',
       bg: 'reallylight',

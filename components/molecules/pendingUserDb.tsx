@@ -1,13 +1,16 @@
 import { Container, Heading, Text, Button, Select, Box, Label, Input } from "@theme-ui/components"
 import router from "next/router";
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { loadingContext } from '../../context/loading'
+
 
 export const PendingUserDb = (props: any) => {
-    let person = props.props; //User Verification form data it needs to be checked and approved or deleted
+    let person = props.person; //User Verification form data it needs to be checked and approved or deleted
     const [status , setStatus ]  = useState('none');
     const [ role, setRole ] = useState('user');
     const [ type, setType ] =useState('fsof');
     const [company, setCompany] = useState(`fsof`); 
+    const { loading, setLoading} = useContext(loadingContext)
 
     // component has 3 states, over view -> delete || verify new user -> confirm action: component view states
     const cancleRequest = () => {
@@ -36,7 +39,6 @@ export const PendingUserDb = (props: any) => {
             role: role,
             company: company
         };
-        console.log(upDateBody)
        const Post = await fetch("/api/userVerifyAdmin", {
             method : "UPDATE",
             body: JSON.stringify(upDateBody)
@@ -46,167 +48,172 @@ export const PendingUserDb = (props: any) => {
     // Com
     if (status === "none") {
         return (
-            <Container m={'auto'} bg={"reallylight"} color={"secondary"} sx={{
+            <Box marginLeft=".25rem"  bg={"secondary"} color={"reallylight"} sx={{
                 width: ['80%'],
-                marginY: [1,2,3],
+                marginTop: [2,3],
                 paddingTop: "1px",
-                borderRadius: '10px'
+                borderRadius:"1rem",
+                boxShadow: "10px 10px 5px lightgrey"
             }}>
-                <Box m={[1,2,3]}>
-                    <Heading>{person.firstName} {person.lastName}of {person.CompanyName}</Heading>
+                <Box m={[2,3]}>
+                    <Heading>{person.firstName} {person.lastName} of {person.CompanyName}</Heading>
                 </Box>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Text>Phone:{person.PhoneNumber}</Text>
                 </Box>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Text>Email:{person.userEmail}</Text>   
                 </Box>
-                <Box m={[1,2,3]} paddingBottom={[1,2,3]}>
+                <Box m={[2,3]} paddingBottom={[2,3]}>
                     <Button onClick={denyVerify}>Deny</Button>
-                    <Button onClick={approveVerify}marginX={[1,2,3]}>Approve</Button>
+                    <Button onClick={approveVerify}marginX={[2,3]}>Approve</Button>
                 </Box>
-            </Container>
+            </Box>
         )
     }
     // Delete request 
     if (status === "delete") {
         return (
-            <Container m={'auto'} bg={"secondary"} color={"reallylight"} sx={{
+            <Box marginLeft=".25rem"  bg={"secondary"} color={"reallylight"} sx={{
                 width: ['80%'],
-                marginY: [1,2,3],
+                marginTop: [2,3],
                 paddingTop: "1px",
-                borderRadius: '10px'
+                borderRadius:"1rem",
+                boxShadow: "10px 10px 5px lightgrey"
             }}>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Heading>{person.firstName} {person.lastName} of {person.CompanyName}</Heading>
                 </Box>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Text>Phone:{person.PhoneNumber}</Text>
                 </Box>
-                    <Box m={[1,2,3]}>
+                    <Box m={[2,3]}>
                         <Text>Email:{person.userEmail}</Text>   
                     </Box>
-                <Box m={[1,2,3]} paddingBottom={[1,2,3]}>
-                    <Button bg={"black"} color={"reallylight"} onClick={deny}>Permenantly Delete</Button>
-                    <Button bg={"black"} color={"reallylight"} marginX={[1,2,3]} onClick={cancleRequest}>Wait until later</Button>
+                <Box m={[2,3]} paddingBottom={[2,3]}>
+                    <Button bg={"black"} color={"reallylight"} onClick={deny} >Permenantly Delete</Button>
+                    <Button bg={"black"} color={"reallylight"} marginX={[2,3]} onClick={cancleRequest}>Wait until later</Button>
                 </Box>
-            </Container>
+            </Box>
         )
     }
     //verify
     if (status === "verify" &&  type === "fsof") {
         return (
-            <Container m={'auto'} bg={"secondary"} color={"reallylight"} sx={{
+            <Box marginLeft=".25rem"  bg={"secondary"} color={"reallylight"} sx={{
                 width: ['80%'],
-                marginY: [1,2,3],
+                marginTop: [2,3],
                 paddingTop: "1px",
-                borderRadius: '10px'
+                borderRadius:"1rem",
+                boxShadow: "10px 10px 5px lightgrey"
             }}>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Heading>{person.firstName} {person.lastName} of </Heading>
                 </Box>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Text>Phone:{person.PhoneNumber}</Text>
                 </Box>
-                    <Box m={[1,2,3]}>
+                    <Box m={[2,3]}>
                         <Text>Email:{person.userEmail}</Text>   
                 </Box>
-                <Label m={[1,2,3]} sx={{
+                <Label m={[2,3]} sx={{
                     paddingTop: 1
                 }}>
                     User Role
                 </Label>
-                <Select onChange={(e)=>{setRole(e.target.value)}} m={[1,2,3]}>
+                <Select onChange={(e)=>{setRole(e.target.value)}} m={[2,3]}>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </Select>
-                <Label m={[1,2,3]}>
+                <Label m={[2,3]}>
                     Type
                 </Label>
-                <Select onChange={(e)=>{setType(e.target.value)}}m={[1,2,3]}>
+                <Select onChange={(e)=>{setType(e.target.value)}}m={[2,3]}>
                     <option value="fsof">FSOF</option>
                     <option value="client">Client</option>
                     <option value="shop">shop</option>
                 </Select>
-                <Box m={[1,2,3]} paddingBottom={[1,2,3]}>
+                <Box m={[2,3]} paddingBottom={[2,3]}>
                     <Button bg={"black"} color={"reallylight"} onClick={verify}>Approve</Button>
                     <Button bg={"black"} color={"reallylight"} marginX={[1,2,3]} onClick={cancleRequest}>Wait until later</Button>
                 </Box>
-            </Container>
+            </Box>
         )
     }
     if (status === "verify" &&  type === "shop") {
         return (
-            <Container m={'auto'} bg={"secondary"} color={"reallylight"} sx={{
+            <Box marginLeft=".25rem"  bg={"secondary"} color={"reallylight"} sx={{
                 width: ['80%'],
-                marginY: [1,2,3],
+                marginTop: [2,3],
                 paddingTop: "1px",
-                borderRadius: '10px'
+                borderRadius:"1rem",
+                boxShadow: "10px 10px 5px lightgrey"
             }}>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Heading>{person.firstName} {person.lastName} of </Heading>
                 </Box>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Text>Phone:{person.PhoneNumber}</Text>
                 </Box>
-                    <Box m={[1,2,3]}>
+                    <Box m={[2,3]}>
                         <Text>Email:{person.userEmail}</Text>   
                 </Box>
-                <Label m={[1,2,3]} sx={{
+                <Label m={[2,3]} sx={{
                     paddingTop: 1
                 }}>
                     User Role
                 </Label>
-                <Select onChange={(e)=>{setRole(e.target.value)}} m={[1,2,3]}>
+                <Select onChange={(e)=>{setRole(e.target.value)}} m={[2,3]}>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </Select>
-                <Label m={[1,2,3]}>
+                <Label m={[2,3]}>
                     Type
                 </Label>
-                <Select onChange={(e)=>{setType(e.target.value)}}m={[1,2,3]}>
+                <Select onChange={(e)=>{setType(e.target.value)}}m={[2,3]}>
                     <option value="fsof">FSOF</option>
                     <option value="client">Client</option>
                     <option value="shop">shop</option>
                 </Select>
-                <Label m={[1,2,3]}>
+                <Label m={[2,3]}>
                     Company
                 </Label>
-                <Select onChange={(e)=>{setCompany(e.target.value)}}m={[1,2,3]}>
+                <Select onChange={(e)=>{setCompany(e.target.value)}}m={[2,3]}>
                     <option value="default">Select One</option>
                     <option value="mirimarTires">Mirimar Tires</option>
                     <option value="worldWideFleet">World Wide Fleet</option>
                 </Select>
-                <Box m={[1,2,3]} paddingBottom={[1,2,3]}>
+                <Box m={[2,3]} paddingBottom={[2,3]}>
                     <Button bg={"black"} color={"reallylight"} onClick={verify}>Approve</Button>
-                    <Button bg={"black"} color={"reallylight"} marginX={[1,2,3]} onClick={cancleRequest}>Wait until later</Button>
+                    <Button bg={"black"} color={"reallylight"} marginX={[2,3]} onClick={cancleRequest}>Wait until later</Button>
                 </Box>
-            </Container>
+            </Box>
         )
     }
     if (status === "verify" &&  type === "client") {
         return (
-            <Container m={'auto'} bg={"secondary"} color={"reallylight"} sx={{
+            <Box marginLeft=".25rem"  bg={"secondary"} color={"reallylight"} sx={{
                 width: ['80%'],
-                marginY: [1,2,3],
+                marginTop: [2,3],
                 paddingTop: "1px",
-                borderRadius: '10px'
+                borderRadius:"1rem",
+                boxShadow: "10px 10px 5px lightgrey"
             }}>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Heading>{person.firstName} {person.lastName} of </Heading>
                 </Box>
-                <Box m={[1,2,3]}>
+                <Box m={[2,3]}>
                     <Text>Phone:{person.PhoneNumber}</Text>
                 </Box>
-                    <Box m={[1,2,3]}>
+                    <Box m={[2,3]}>
                         <Text>Email:{person.userEmail}</Text>   
                 </Box>
-                <Label m={[1,2,3]} sx={{
+                <Label m={[2,3]} sx={{
                     paddingTop: 1
                 }}>
                     User Role
                 </Label>
-                <Select onChange={(e)=>{setRole(e.target.value)}} m={[1,2,3]}>
+                <Select onChange={(e)=>{setRole(e.target.value)}} m={[2,3]}>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </Select>
@@ -221,7 +228,7 @@ export const PendingUserDb = (props: any) => {
                 <Label m={[1,2,3]}>
                     Company
                 </Label>
-                <Select onChange={(e)=>{setCompany(e.target.value)}}m={[1,2,3]}>
+                <Select onChange={(e)=>{setCompany(e.target.value)}}m={[2,3]}>
                     <option value="default">Select One</option>
                     <option value="nova">Nova</option>
                     <option value="cano">Cano</option>
@@ -229,11 +236,11 @@ export const PendingUserDb = (props: any) => {
                     <option value="safeLite">Safe Lite</option>
                     <option value="trane">Trane</option>
                 </Select>
-                <Box m={[1,2,3]} paddingBottom={[1,2,3]}>
+                <Box m={[2,3]} paddingBottom={[2,3]}>
                     <Button bg={"black"} color={"reallylight"} onClick={verify}>Approve</Button>
-                    <Button bg={"black"} color={"reallylight"} marginX={[1,2,3]} onClick={cancleRequest}>Wait until later</Button>
+                    <Button bg={"black"} color={"reallylight"} marginX={[2,3]} onClick={cancleRequest}>Wait until later</Button>
                 </Box>
-            </Container>
+            </Box>
         )
     }
     return(

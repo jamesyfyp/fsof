@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `ContactForm` MODIFY `lastContacted` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);

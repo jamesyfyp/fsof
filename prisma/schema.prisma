@@ -56,6 +56,7 @@ model ContactForm {
   PhoneNumber    String @db.VarChar(255)
   userEmail           String @db.VarChar(255)   
   message              String @db.VarChar(1000)
-  lastContacted     DateTime @db.DateTime()
+  lastContacted     DateTime @default(now())@updatedAt
+  timesContacted   Int @db.Int()@default(0)
 
 }

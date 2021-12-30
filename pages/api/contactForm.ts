@@ -19,16 +19,39 @@ export default async (req: any, res: any) => {
     )
     res.end();
   }
+  
   if (req.method === "GET") {
-    const userVerificationGet = await prisma.contactForm.findMany()
+    const userVerificationGet = await prisma.contactForm.findMany({where: {
+      timesContacted: 0
+    }
+  } 
+    )
     res.status(200);
     res.json(userVerificationGet);
     res.end();
   }
+  
+  if (req.method === "PATCH") {
+    let body = JSON.parse(req.body)
+    let digit  =  Number(body.id)
+    const userVerificationGet = await prisma.contactForm.update({
+      where: {
+        id: digit
+      },
+      data: {
+        timesContacted: {
+          increment: 1
+        }
+      }
+    })
+    res.status(200);
+    res.json(userVerificationGet);
+    res.end();
+  }
+  
   if (req.method === "DELETE") {
-    let digit  = Number(req.body);
-    
-  const userVerificationDelete = await prisma.userVerifyForm.delete({
+    let digit  = Number(req.body.id);
+  const userVerificationDelete = await prisma.contactForm.delete({
       where: {
         id: digit
       }
