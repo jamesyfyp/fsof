@@ -1,14 +1,22 @@
 import { Box, Label, Input, Button, Flex, Text } from "theme-ui"
 import { useForm } from "react-hook-form"
+import { setLoading } from "../../../context/loading";
 
-interface VehichleDataInputs {
+export interface VehichleDataInputs {
     vin: string,
     mileage: number,
-    tag: string,
     customer: string
 }
 
 export  const VehicleData = ({setData}: any) =>{
+    const postVehicleFormData  = async (x: VehichleDataInputs ) =>{
+        const response = await fetch('/api/walkAround', {
+            method: 'POST',
+            body: JSON.stringify(x)
+        })
+        const data = await response.json()
+        setData(x, data.id)
+    }
     const {
         register,
         handleSubmit, 
@@ -17,7 +25,7 @@ export  const VehicleData = ({setData}: any) =>{
     } = useForm<VehichleDataInputs>( );
 
     const onSubmit = (data: VehichleDataInputs) =>{
-        setData(data)
+        postVehicleFormData(data)
     }
     return (
         <Box id="VehichleDataInputs" p={[1,2,3]}bg='secondary' as="form" marginY="0" onSubmit={handleSubmit(onSubmit)} sx={{

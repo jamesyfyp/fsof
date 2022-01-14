@@ -9,7 +9,7 @@ export interface complaintCause {
 }
 
 
-export  const CCC = ({setData}: any) =>{
+export  const CCC = ({setData}: any, wId: number) =>{
     const {
         reset,
         register,
@@ -18,13 +18,26 @@ export  const CCC = ({setData}: any) =>{
         formState: {errors}
     } = useForm<complaintCause>( );
 
-    const onSubmit = (data: complaintCause) =>{
-        setData(data)
-        reset({
-            complaint: "",
-            cause: "",
-            correction: ""
-        })
+    const onSubmit = async (data: complaintCause) =>{
+        const body = {
+            complaint: data.complaint,
+            cause: data.cause,
+            correction: data.correction,
+            id: wId
+        }
+        const response = await fetch('/api/ccc', {
+            method: 'POST',
+            body: JSON.stringify(body)
+        }).then((res)=>{
+            if(res.status === 200){
+                setData(data)
+                reset({
+                    complaint: "",
+                    cause: "",
+                    correction: ""
+                })
+            }
+        }) 
     }
     return (
         <Box id="VehichleDataInputs" p={[1,2,3]}bg='secondary' as="form" marginY="0" onSubmit={handleSubmit(onSubmit)} sx={{

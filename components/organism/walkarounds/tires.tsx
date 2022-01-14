@@ -1,5 +1,6 @@
 import { Box, Label, Button, Flex, Input, Text, Heading } from "theme-ui"
 import { useForm} from "react-hook-form"
+import tires from "../../../pages/api/tires";
 
 
 export interface Tires {
@@ -15,7 +16,7 @@ export interface Tires {
 }
 
 
-export  const Tires = ({setData, display}: any) =>{
+export  const Tires = ({setData, display, wId}: any) =>{
     const  {
         register,
         handleSubmit, 
@@ -23,7 +24,24 @@ export  const Tires = ({setData, display}: any) =>{
         formState: {errors}
     } = useForm<Tires>( );
 
-    const onSubmit = (data: Tires) =>{
+    const onSubmit = async (data: Tires) =>{
+        const body = {
+            id: wId,
+            fl: data.fl,
+            fr: data.fr,
+            rl: data.rl,
+            rr: data.rr,
+            rl2: data.rl2,
+            rr2: data.rr2,
+            brand: data.brand,
+            size: data.size,
+            partNumber: data.partNumber
+
+        }
+        const response = await fetch('/api/tires', {
+            method: 'PUT',
+            body: JSON.stringify(body)
+        })
         setData(data)
     }
 

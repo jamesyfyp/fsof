@@ -17,9 +17,36 @@ model WalkAround {
   id               Int      @default(autoincrement()) @id
   createdAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title            String   @db.VarChar(255)
+  vin String@db.VarChar(255)
+  mileage Int 
+  customer String @db.VarChar(255)
+  ccc CCC[]
+  eRatedCCA Int?
+  eCCA Int?
+  eRatedVoltage Int?
+  eVoltage Int?
+  brand String?
+  partNumber String?
+  nCCA Int?
+  nVoltage Int?
+  fl Int?
+  fr Int?
+  rl Int?
+  rr Int?
+  rl2 Int?
+  rr2 Int?
+  tireBrand String?
+  size String?
+  tirePartNumber String?
 }
 
+model CCC {
+  id  Int      @default(autoincrement()) @id
+  walkAroundId WalkAround @relation(fields: [id], references: [id])
+  complaint String @db.VarChar(255)
+  cause String @db.VarChar(255)
+  correction String @db.VarChar(255)
+}
 
 model User {
  
@@ -38,7 +65,7 @@ model User {
 model UserVerifyForm {
   
   id                        Int       @id @default(autoincrement())
-  firstName            String @db.VarChar(255)
+  firstName           String @db.VarChar(255)
   lastName            String @db.VarChar(255)
   CompanyName  String @db.VarChar(255)
   PhoneNumber    String @db.VarChar(255)

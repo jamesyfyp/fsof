@@ -9,6 +9,7 @@ import { complaintCause } from "../components/organism/walkarounds/ccc";
 import { Tires } from "../components/organism/walkarounds/tires"
 import { TireDisplay } from "../components/organism/walkarounds/tireDisplay"
 import { Batteries } from "../components/organism/walkarounds/batteries";
+import {VehichleDataInputs} from "../components/organism/walkarounds/vehicleData"
 
 
 const NewWalkAround: NextPage = () =>{
@@ -17,11 +18,11 @@ const NewWalkAround: NextPage = () =>{
     const [ tireState, setTireState ] = useState(false)
     const [ displayTireData, setDisplayTireData ] = useState(false)
     const [ batteryState, setBatteryState ] = useState(false)
+    const [ walkAroundID, setWalkAroundID ] = useState(0)
     
     const [ vehicleData, setVehicleData ] = useState({
         vin: "",
         mileage: 0,
-        tag: "",
         customer: ""
     })
     
@@ -39,25 +40,25 @@ const NewWalkAround: NextPage = () =>{
         partNumber: ""
     })
 
-    const tData = ( x: Tires) => {
+    const setTireFormData = ( x: Tires) => {
         setTireData( x)
         setCccState(true)
         setTireState(true)
         setDisplayTireData(true)
     }
 
-    const vData = ( vin: string, mileage: number, tag: string, customer:string) => {
+    const setVehicleFormData = ( x: VehichleDataInputs, y: number) => {
         setVehicleData( { 
-            vin: vin,
-            mileage: mileage,
-            tag: tag, 
-            customer: customer 
+            vin: x.vin,
+            mileage: x.mileage,
+            customer: x.customer 
         })
+        setWalkAroundID(y)
         setVDataState(false)
         setCccState(true)
     }
 
-    const cccData = (x: complaintCause) => {
+    const setCccData = (x: complaintCause) => {
         setCcc( [...ccc, { 
             complaint: x.complaint,
             cause: x.cause,
@@ -67,19 +68,18 @@ const NewWalkAround: NextPage = () =>{
         setCccState(true)
     }
 
-
-   if (vDataState === true ){
+   if (vDataState){
        return(
             <Dashboard>
                 <Heading p={[1,2]}sx={{textAlign: "center"}}>New Walk Around</Heading>
-                <VehicleData setData={vData} />
+                <VehicleData setData={setVehicleFormData} />
             </Dashboard>
        )
    } 
-   if (cccState === true ){
+   if (cccState){
     return( 
         <Dashboard> 
-            <Heading p={[1,2,3]}sx={{textAlign: "center"}}>New Walk Around</Heading>
+            <Heading p={[1,2,3]}sx={{textAlign: "center"}}>Walk Around #{walkAroundID}</Heading>
             <Flex paddingBottom={[1,2,3]} sx={{
                 justifyContent: 'center',
             }}>
@@ -97,7 +97,7 @@ const NewWalkAround: NextPage = () =>{
                 Batteries
             </Button>
             </Flex>
-            <CCC  setData={cccData} />            
+            <CCC  wId={walkAroundID} setData={setCccData} />            
             <TireDisplay tires={tireData} tiresDisplay={displayTireData}/>
             {ccc.map((x,i)=>{
                 return(
@@ -107,20 +107,20 @@ const NewWalkAround: NextPage = () =>{
         </Dashboard>
     )
 } 
-if (tireState === true ){
+if (tireState){
     return( 
         <Dashboard>
             <Heading p={[1,2]}sx={{textAlign: "center"}}>New Walk Around</Heading>
-            <Tires display={tireState} setData={tData}/>
+            <Tires display={tireState} wId={walkAroundID} setData={setTireFormData}/>
         </Dashboard>
     )
 } 
 
-if (batteryState === true ){
+if (batteryState){
     return( 
         <Dashboard>
             <Heading p={[1,2]}sx={{textAlign: "center"}}>New Walk Around</Heading>
-            <Batteries display={batteryState} setData={tData}/>
+            <Batteries wId={walkAroundID} display={batteryState} setData={setTireFormData}/>
         </Dashboard>
     )
 } 

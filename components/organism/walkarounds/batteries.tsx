@@ -1,4 +1,4 @@
-import { Box, Label, Button, Grid, Input,  Heading } from "theme-ui"
+import { Box, Label, Button, Input,  Heading } from "theme-ui"
 import { useForm} from "react-hook-form"
 
 
@@ -14,15 +14,29 @@ export interface Batteries {
 }
 
 
-export  const Batteries = ({setData, display}: any) =>{
+export  const Batteries = ({setData, display, wId}: any) =>{
     const  {
         register,
         handleSubmit, 
         watch,
         formState: {errors}
     } = useForm<Batteries>( );
-
-    const onSubmit = (data: Batteries) =>{
+    const onSubmit = async (data: Batteries ) =>{
+        let body = {
+            id: wId,
+            eRatedCCA: data.eRatedCCA,
+            eCCA: data.eCCA,
+            eRatedVoltage: data.eRatedVoltage,
+            eVoltage: data.eVoltage,
+            brand: data.brand,
+            partNumber: data.partNumber,
+            nCCA: data.nCCA,
+            nVoltage: data.nVoltage
+        }
+        const response = await fetch('/api/walkAround', {
+            method: 'PUT',
+            body: JSON.stringify(body)
+        })
         setData(data)
     }
 
@@ -66,12 +80,25 @@ export  const Batteries = ({setData, display}: any) =>{
         <Input p={[1,2]} id="brand"{...register("brand", {
             required: true
         })}/>
+        <Label p={[1,2]} htmlFor="PartNumber" >
+            Part Number
+        </Label>
+        <Input p={[1,2]} id="partNumber"{...register("partNumber", {
+            required: true
+        })}/>
         <Label p={[1,2]} htmlFor="nCCa" paddingRight="5%" >
             New Battery CCA
         </Label>
         <Input p={[1,2]}  id="nCCA"{...register("nCCA", {
             required: true
         })}/>
+        <Label p={[1,2]} htmlFor="nVoltage" paddingRight="5%" >
+            New Battery Voltage
+        </Label>
+        <Input p={[1,2]}  id="nVoltage"{...register("nVoltage", {
+            required: true
+        })}/>
+        <Button type="submit">Submit</Button>
     </Box>
     )
     return(<></>)
