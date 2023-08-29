@@ -1,3 +1,4 @@
+import type { NextApiRequest, NextApiResponse } from "next"
 import NextAuth from "next-auth"
 import CognitoProvider from "next-auth/providers/cognito"
 
