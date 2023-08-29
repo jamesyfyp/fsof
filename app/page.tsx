@@ -1,10 +1,10 @@
 "use client";
-import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import {
   motion,
   useScroll,
   useSpring,
+  useInView,
   useTransform,
   MotionValue,
 } from "framer-motion";
@@ -15,40 +15,40 @@ function useParallax(value: MotionValue<number>, distance: number) {
 
 function Group({ id }: { id: number }) {
   const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
   const { scrollYProgress } = useScroll({ target: ref });
-  const y = useParallax(scrollYProgress, -150);
-
+  const y = useParallax(scrollYProgress, -50);
+  useEffect(() => {}, [scrollYProgress]);
   return (
-    <section className="w-full h-screen  ">
+    <section className="m-auto w-4/5 h-screen py-[50px] ">
       <motion.div
         style={{
           y,
           opacity: 0,
         }}
         whileInView={{ opacity: 1 }}
-        className="m-auto w-[200px] h-[400px] bg-white"
+        className={`m-auto w-full h-4/5 bg-white`}
         ref={ref}
       ></motion.div>
     </section>
   );
 }
 
-console.log(useScroll);
-
 export default function Home() {
+  useEffect(() => {});
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
-
   return (
-    <>
-      {[1, 2, 3, 4, 5].map((image) => (
-        <Group key={image} id={image} />
+    <div className="">
+      {[1, 2, 3, 4, 5].map((id) => (
+        <Group key={id} id={id} />
       ))}
-      <motion.div className="progress" style={{ scaleX }} />
-    </>
+      <motion.div style={{ scaleX }} />
+    </div>
   );
 }
