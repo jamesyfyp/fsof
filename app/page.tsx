@@ -37,7 +37,6 @@ function Group({ id }: { id: number }) {
 }
 
 export default function Home() {
-  useEffect(() => {});
   const router = useRouter();
   const { data: session, status } = useSession();
   const { scrollYProgress } = useScroll();
@@ -46,8 +45,9 @@ export default function Home() {
     damping: 30,
     restDelta: 0.001,
   });
-  if (!session) {
-    router.push("/auth/signin");
+  //checks auth
+  if (!session && status == "unauthenticated") {
+    router.push("api/auth/signin");
   }
   return (
     <div className="">
