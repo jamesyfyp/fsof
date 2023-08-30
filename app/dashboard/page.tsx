@@ -8,6 +8,8 @@ import {
   useTransform,
   MotionValue,
 } from "framer-motion";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function useParallax(value: MotionValue<number>, distance: number) {
   return useTransform(value, [0, 1], [-distance, distance]);
@@ -35,13 +37,20 @@ function Group({ id }: { id: number }) {
 }
 
 export default function Home() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
-
+  //checks auth
+  if (!session && status == "unauthenticated") {
+    router.push("api/auth/signin");
+  }
+  if (session) {
+  }
   return (
     <div className="">
       {[1, 2, 3, 4, 5].map((id) => (
