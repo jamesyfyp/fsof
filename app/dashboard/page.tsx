@@ -50,6 +50,7 @@ export default function Home() {
     router.push("api/auth/signin");
   }
   if (session) {
+    console.log(session);
   }
   return (
     <div className="">
