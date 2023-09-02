@@ -8,17 +8,37 @@ import {
   useTransform,
   MotionValue,
 } from "framer-motion";
+import Image from "next/image";
 
 function useParallax(value: MotionValue<number>, distance: number) {
   return useTransform(value, [0, 1], [-distance, distance]);
 }
 
 function Logo() {
-  return <h2>Asss</h2>;
+  const logoRef = useRef(null);
+
+  return (
+    <>
+      <motion.div
+        ref={logoRef}
+        className="relative m-auto aspect-square h-4/5 w-4/5 lg:h-4/5 lg:w-auto object-contain"
+      >
+        <Image
+          className="object-fit: contain"
+          alt="fleet services of florida logo"
+          src="/fleetServicesOfFloridaLogo.png"
+          fill
+        />
+      </motion.div>
+      <h2 className=" text-l sm:text-xl md:text-2xl lg:text-3xl text-black font-bold pt-2 text-center">
+        The Worlds Finest Fleet Maintenance Provider
+      </h2>
+    </>
+  );
 }
 
-function Logo2() {
-  return <h2>Asss</h2>;
+function Services() {
+  return <div className="h-full w-full"></div>;
 }
 
 function Logo3() {
@@ -32,14 +52,14 @@ function Group({ id, children }: { id: number; children: ReactNode }) {
   const y = useParallax(scrollYProgress, -50);
   useEffect(() => {}, [scrollYProgress]);
   return (
-    <section className="m-auto w-4/5 h-screen py-[50px] ">
+    <section className="m-auto  sm:w-full md:w-4/5 h-screen py-[50px] ">
       <motion.div
         style={{
           y,
           opacity: 0,
         }}
         whileInView={{ opacity: 1 }}
-        className={`m-auto w-full h-4/5 bg-red-300`}
+        className={`m-auto w-full h-4/5 bg-teal-100`}
         ref={ref}
       >
         {children}
@@ -48,7 +68,7 @@ function Group({ id, children }: { id: number; children: ReactNode }) {
   );
 }
 
-let display = [<Logo />, <Logo2 />, <Logo3 />];
+let display = [<Logo />, <Services />, <Logo3 />];
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
