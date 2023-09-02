@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, Component, ReactNode } from "react";
 import {
   motion,
   useScroll,
@@ -13,7 +13,19 @@ function useParallax(value: MotionValue<number>, distance: number) {
   return useTransform(value, [0, 1], [-distance, distance]);
 }
 
-function Group({ id }: { id: number }) {
+function Logo() {
+  return <h2>Asss</h2>;
+}
+
+function Logo2() {
+  return <h2>Asss</h2>;
+}
+
+function Logo3() {
+  return <h2>Asss</h2>;
+}
+
+function Group({ id, children }: { id: number; children: ReactNode }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false });
   const { scrollYProgress } = useScroll({ target: ref });
@@ -27,12 +39,16 @@ function Group({ id }: { id: number }) {
           opacity: 0,
         }}
         whileInView={{ opacity: 1 }}
-        className={`m-auto w-full h-4/5 bg-white`}
+        className={`m-auto w-full h-4/5 bg-red-300`}
         ref={ref}
-      ></motion.div>
+      >
+        {children}
+      </motion.div>
     </section>
   );
 }
+
+let display = [<Logo />, <Logo2 />, <Logo3 />];
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -44,8 +60,10 @@ export default function Home() {
 
   return (
     <div className="">
-      {[1, 2, 3, 4, 5].map((id) => (
-        <Group key={id} id={id} />
+      {display.map((child, i) => (
+        <Group key={i} id={i}>
+          {child}
+        </Group>
       ))}
       <motion.div style={{ scaleX }} />
     </div>

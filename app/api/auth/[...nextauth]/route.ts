@@ -21,16 +21,6 @@ const handler = NextAuth({
         logo: "https://cdn.designly.biz/images/designly-logo-300.webp", // Absolute URL to image
         buttonText: "#fff" // Hex color code
     },
-    callbacks: {
-    async jwt({ token, user,  account, profile }) {
-      console.log(token)
-      return token
-    },
-    async session({ session, user, token }) {
-      console.log( session)
-      return session
-    },
-}
 })
 
 export { handler as GET, handler as POST }
