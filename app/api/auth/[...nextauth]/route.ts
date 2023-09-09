@@ -21,6 +21,15 @@ const handler = NextAuth({
         logo: "https://cdn.designly.biz/images/designly-logo-300.webp", // Absolute URL to image
         buttonText: "#fff" // Hex color code
     },
+    callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+        user.name = profile['cognito:groups'][0]
+        return true
+    },
+}
+    
+   
+    
 })
 
 export { handler as GET, handler as POST }
