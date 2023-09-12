@@ -22,15 +22,14 @@ const handler = NextAuth({
         buttonText: "#fff" // Hex color code
     },
     callbacks: {
-    async jwt({ token, user,  account, profile }) {
-      console.log(token)
-      return token
-    },
-    async session({ session, user, token }) {
-      console.log( session)
-      return session
+    async signIn({ user, account, profile, email, credentials }) {
+        user.name = JSON.stringify(profile['cognito:groups'])
+        return true
     },
 }
+    
+   
+    
 })
 
 export { handler as GET, handler as POST }
