@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
+
 import { Inter } from "@next/font/google";
 // These styles apply to every route in the application
 import "./globals.css";

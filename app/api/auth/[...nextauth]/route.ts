@@ -23,7 +23,7 @@ const handler = NextAuth({
     },
     callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-        user.name = profile['cognito:groups'][0]
+        user.name = JSON.stringify(profile['cognito:groups'])
         return true
     },
 }
