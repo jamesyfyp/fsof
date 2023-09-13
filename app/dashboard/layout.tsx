@@ -15,7 +15,7 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <SessionProvider session={session}>
-      <main>{children}</main>
+      <main className="mx-auto max-w-5xl text-2xl flex gap-2">{children}</main>
     </SessionProvider>
   );
 }

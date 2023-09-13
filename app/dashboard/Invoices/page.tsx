@@ -37,7 +37,7 @@ export default async function ProtectedRoute() {
         })}
       </div>
       <div className="w-full min-h-[100vh] p-4">
-        <h1 className="text-center w-full">dashboard home</h1>
+        <h1 className="text-center w-full"> Invoices </h1>
       </div>
     </div>
   );

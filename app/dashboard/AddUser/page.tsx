@@ -21,6 +21,8 @@ export default async function ProtectedRoute() {
     }
   }
 
+  // create server action that will go into a component that will allow for us to add a user to cognito pool / groups
+
   return (
     <div className="w-full min-h-[99vh] flex border-2 border-white rounded">
       <div className="w-[200px] min-h-[99vh] bg-slate-400 ">
@@ -37,7 +39,7 @@ export default async function ProtectedRoute() {
         })}
       </div>
       <div className="w-full min-h-[100vh] p-4">
-        <h1 className="text-center w-full">dashboard home</h1>
+        <h1 className="text-center w-full">add user</h1>
       </div>
     </div>
   );
