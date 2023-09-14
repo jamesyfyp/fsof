@@ -1,3 +1,4 @@
+import ClientForm from "@/app/components/ClientForm";
 import ServerButton from "@/app/components/ServerButton";
 import {
   CognitoIdentityProviderClient,
@@ -19,7 +20,13 @@ async function newGroup(formData: FormData) {
     GroupName: String(formData.get("GroupName")),
   };
   const command = new CreateGroupCommand(inputGroupName);
-  const response = await client.send(command);
+  try {
+    const response = await client.send(command);
+  } catch (e) {
+    console.log(e);
+    return { error: "error" };
+  }
+
   revalidatePath("/dashboard/AddShop");
 }
 
@@ -52,21 +59,17 @@ export default async function AddShop() {
       shops.splice(i, 1);
     }
   });
+
   if (!shops) {
     return <></>;
   }
 
   return (
     <div className="w-full min-h-[100vh] p-4">
-      <h1 className="text-center w-full">Add Shop</h1>
-      <form action={newGroup}>
-        <input className="text-black" id="GroupName" name="GroupName"></input>
-        <button className="" type="submit">
-          add
-        </button>
-      </form>
+      <h1 className="text-center w-full p-4">Add Shop</h1>
+      <ClientForm serverAction={newGroup} shops={shops} />
       <div>
-        <h2>All Shops</h2>
+        <h2 className="m-2 pt-4">All Shops</h2>
         <div className="flex justify-between">
           {shops.map((shop, i) => {
             return (
