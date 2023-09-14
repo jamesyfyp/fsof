@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.410.0",
     "@next/font": "^13.4.19",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",

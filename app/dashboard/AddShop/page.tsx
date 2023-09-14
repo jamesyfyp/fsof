@@ -1,45 +1,64 @@
-import { redirect } from "next/navigation";
-import Link from "next/link";
-import { getServerSession } from "next-auth";
+import {
+  CognitoIdentityProviderClient,
+  ListGroupsCommand,
+  CreateGroupCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
+import { revalidatePath } from "next/cache";
 
-export default async function ProtectedRoute() {
-  const session = await getServerSession();
-  if (!session || !session.user) {
-    redirect("/api/auth/signin");
-  }
+async function newGroup(formData: FormData) {
+  "use server";
+  const client = new CognitoIdentityProviderClient({
+    region: "us-east-2",
+  });
+  const inputGroupName = {
+    UserPoolId: "us-east-2_M8qI1fKwv",
+    GroupName: formData.get("GroupName"),
+  };
+  const command = new CreateGroupCommand(inputGroupName);
+  const response = await client.send(command);
+  revalidatePath("/dashboard/AddShop");
+}
 
-  const menuItems = [];
-  if (session.user) {
-    let type = JSON.parse(session.user.name);
-    if (type[0] == "FSOF") {
-      menuItems.push("Add Shop");
-      menuItems.push("Add User");
-      menuItems.push("Invoices");
-    } else {
-      menuItems.push("New Invoice");
-      menuItems.push("All Invoice");
+export default async function AddShop() {
+  const client = new CognitoIdentityProviderClient({
+    region: "us-east-2",
+  });
+  const input = {
+    UserPoolId: "us-east-2_M8qI1fKwv",
+  };
+  const command = new ListGroupsCommand(input);
+  const response = await client.send(command);
+  const shops = response.Groups;
+  shops?.forEach((shop, i) => {
+    if (shop.GroupName == "FSOF" || shop.GroupName == "admin") {
+      shops.splice(i, 1);
     }
-  }
-
-  // create server action that will go into a component that will allow for us to add a cognito group
+  });
 
   return (
-    <div className="w-full min-h-[99vh] flex border-2 border-white rounded">
-      <div className="w-[200px] min-h-[99vh] bg-slate-400 ">
-        {menuItems.map((item, i) => {
-          return (
-            <Link
-              className="block justify-center text-center w-4/5 pt-[.75px] m-auto my-6 h-10 border-2 border-white hover:bg-black hover:text-white rounded"
-              key={i}
-              href={`/dashboard/${item.replaceAll(" ", "")}`}
-            >
-              {item}
-            </Link>
-          );
-        })}
-      </div>
-      <div className="w-full min-h-[100vh] p-4">
-        <h1 className="text-center w-full">add shop</h1>
+    <div className="w-full min-h-[100vh] p-4">
+      <h1 className="text-center w-full">Add Shop</h1>
+      <div>
+        <h2>All Shops</h2>
+        <div className="flex justify-between">
+          {shops.map((shop, i) => {
+            return (
+              <div className="text-sm p-2 m-2 border-2 rounded-md" key={i}>
+                {shop.GroupName}
+              </div>
+            );
+          })}
+          <form action={newGroup}>
+            <input
+              className="text-black"
+              id="GroupName"
+              name="GroupName"
+            ></input>
+            <button className="" type="submit">
+              add
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
