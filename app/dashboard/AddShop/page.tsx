@@ -66,7 +66,7 @@ export default async function AddShop() {
       <h1 className="text-center w-full p-4">Add Shop</h1>
       <ClientForm serverAction={newGroup} shops={shops} />
       <div>
-        <h2 className="m-2 pt-4">All Shops</h2>
+        {shops.length > 2 && <h2 className="m-2 pt-4">All Shops</h2>}
         <div className="flex justify-between">
           {shops.map((shop, i) => {
             return <ServerButton shop={shop} action={DeleteGroup} key={i} />;
