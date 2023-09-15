@@ -17,7 +17,12 @@ export default function ServerButton({ shop, action }: any) {
           onClick={() => setOpen(false)}
           className="absolute right-2 top-2 h-6 w-6 "
         />
-        <form action={action}>
+        <form
+          onSubmit={() => {
+            setOpen(false);
+          }}
+          action={action}
+        >
           <input
             className="hidden"
             readOnly={true}

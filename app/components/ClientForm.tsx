@@ -22,6 +22,9 @@ export default function ClientForm({ serverAction, shops }: any) {
   return (
     <form
       action={serverAction}
+      onSubmit={() => {
+        setInput("");
+      }}
       className="border-2 border-white rounded-md w-1/2 m-auto grid grid-rows-2 "
     >
       {buttonDisable && (
