@@ -53,17 +53,14 @@ export default async function AddShop() {
   };
   const command = new ListGroupsCommand(input);
   const response = await client.send(command);
-  const shops = response.Groups;
-  shops?.forEach((shop, i) => {
-    if (shop.GroupName == "FSOF" || shop.GroupName == "admin") {
-      shops.splice(i, 1);
+  const groups = response.Groups;
+  const shops: string[] = [];
+  groups?.map((shop, i) => {
+    if (shop.GroupName != "FSOF" && shop.GroupName != "admin") {
+      shops.push(String(shop.GroupName));
     }
   });
-
-  if (!shops) {
-    return <></>;
-  }
-
+  if (!shops) return <></>;
   return (
     <div className="w-full min-h-[100vh] p-4">
       <h1 className="text-center w-full p-4">Add Shop</h1>
@@ -72,16 +69,11 @@ export default async function AddShop() {
         <h2 className="m-2 pt-4">All Shops</h2>
         <div className="flex justify-between">
           {shops.map((shop, i) => {
-            return (
-              <ServerButton
-                shop={shop.GroupName}
-                action={DeleteGroup}
-                key={i}
-              />
-            );
+            return <ServerButton shop={shop} action={DeleteGroup} key={i} />;
           })}
         </div>
       </div>
     </div>
   );
 }
+2;

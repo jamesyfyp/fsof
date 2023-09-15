@@ -8,7 +8,7 @@ export default function ClientForm({ serverAction, shops }: any) {
   useEffect(() => {
     setButtonDisable(false);
     shops.map((shop: any) => {
-      if (input.toLowerCase() == shop.GroupName.toLowerCase()) {
+      if (input.toLowerCase() == shop.toLowerCase()) {
         setButtonDisable(true);
         setError("Shop already exists!");
       }
