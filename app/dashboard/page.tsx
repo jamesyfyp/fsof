@@ -1,14 +1,7 @@
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-
-export default async function ProtectedRoute() {
-  const session = await getServerSession();
-  if (!session || !session.user) {
-    redirect("/api/auth/signin");
-  }
-  if (session.user) {
-    console.log(session.user);
-  }
-
-  return <div>{session.user.name}</div>;
+export default async function dashBoard() {
+  return (
+    <div className="w-full min-h-[100vh] p-4">
+      <h1 className="text-center w-full">dashboard home</h1>
+    </div>
+  );
 }
