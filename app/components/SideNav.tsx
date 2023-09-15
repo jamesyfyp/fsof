@@ -5,6 +5,7 @@ import Link from "next/link";
 export default function NavMenu() {
   const session = useSession();
   const menuItems = [];
+  if (!session) return <></>;
   if (session?.data?.user) {
     let type = JSON.parse(String(session.data.user.name));
     if (type[0] == "FSOF") {

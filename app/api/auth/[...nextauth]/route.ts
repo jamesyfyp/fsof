@@ -1,8 +1,5 @@
 import NextAuth from "next-auth"
 import CognitoProvider from "next-auth/providers/cognito"
-import { randomUUID, randomBytes } from "crypto"
-import { Session } from "inspector"
-import jwtDecode from "jwt-decode"
 
 const clientId: string = `${process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID ? process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID : ''}`
 const clientSecret: string = `${process.env.NEXT_PUBLIC_COGNITO_CLIENT_SECRET ? process.env.NEXT_PUBLIC_COGNITO_CLIENT_SECRET : ''}`
@@ -25,7 +22,7 @@ const handler = NextAuth({
     async signIn({ user, account, profile, email, credentials }) {
         user.name = JSON.stringify(profile['cognito:groups'])
         return true
-    },
+    }
 }
     
    
