@@ -1,8 +1,7 @@
 "use server";
 import {
   CognitoIdentityProviderClient,
-  CreateGroupCommand,
-  CreateGroupCommandInput,
+  AdminCreateUserCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { revalidatePath } from "next/cache";
@@ -14,12 +13,12 @@ export default async function AddUser(formData: FormData) {
 
   const cognitoClient = new CognitoIdentityProviderClient(config);
 
-  const inputGroupName: CreateGroupCommandInput = {
+  const inputGroupName = {
     UserPoolId: "us-east-2_M8qI1fKwv",
     GroupName: String(formData.get("GroupName")),
   };
 
-  const cognitoCommand = new CreateGroupCommand(inputGroupName);
+  const cognitoCommand = new AdminCreateUserCommand(inputGroupName);
 
   try {
     const response = await cognitoClient.send(cognitoCommand);
