@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.413.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.410.0",
+    "@aws-sdk/client-iam": "^3.414.0",
+    "@aws-sdk/client-s3": "^3.413.0",
     "@heroicons/react": "^2.0.18",
     "@next/font": "^13.4.19",
     "@types/node": "20.5.1",
