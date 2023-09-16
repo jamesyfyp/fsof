@@ -7,7 +7,7 @@ import {
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { revalidatePath } from "next/cache";
 
-export default async function NewGroup(formData: FormData) {
+export default async function AddUser(formData: FormData) {
   const config = {
     region: "us-east-2",
   };

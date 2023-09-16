@@ -18,8 +18,8 @@ export default async function DeleteGroup(formData: FormData) {
     GroupName: String(formData.get("GroupName")),
   };
 
-  const cogntioCommand = new DeleteGroupCommand(inputGroupName);
-  const cogntioResponse = await cognitoClient.send(cogntioCommand);
+  const cognitoCommand = new DeleteGroupCommand(inputGroupName);
+  const cognitoResponse = await cognitoClient.send(cognitoCommand);
 
   const s3Client = new S3Client(config);
   const input = {
