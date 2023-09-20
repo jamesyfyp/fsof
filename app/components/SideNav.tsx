@@ -9,8 +9,7 @@ export default function NavMenu() {
   if (session?.data?.user) {
     let type = JSON.parse(String(session.data.user.name));
     if (type[0] == "FSOF") {
-      menuItems.push("Add Shop");
-      menuItems.push("Add User");
+      menuItems.push("Admin");
       menuItems.push("Invoices");
     } else {
       menuItems.push("New Invoice");

@@ -5,19 +5,21 @@ export default function ClientForm({ serverAction, shops }: any) {
   const [input, setInput] = useState("");
   const [buttonDisable, setButtonDisable] = useState(false);
   const [error, setError] = useState("");
-  useEffect(() => {
-    setButtonDisable(false);
-    shops.map((shop: any) => {
-      if (input.toLowerCase() == shop.toLowerCase()) {
-        setButtonDisable(true);
-        setError("Shop already exists!");
-      }
-      if (input.includes(" ")) {
-        setButtonDisable(true);
-        setError("No spaces! useCapitalsLikeThis or _");
-      }
-    });
-  }, [input]);
+  if (shops) {
+    useEffect(() => {
+      setButtonDisable(false);
+      shops.map((shop: any) => {
+        if (input.toLowerCase() == shop.toLowerCase()) {
+          setButtonDisable(true);
+          setError("Shop already exists!");
+        }
+        if (input.includes(" ")) {
+          setButtonDisable(true);
+          setError("No spaces! useCapitalsLikeThis or _");
+        }
+      });
+    }, [input]);
+  }
 
   return (
     <form
