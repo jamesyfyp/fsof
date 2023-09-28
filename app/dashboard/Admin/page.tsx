@@ -1,3 +1,4 @@
+
 import {
   CognitoIdentityProviderClient,
   ListGroupsCommand,
@@ -7,6 +8,7 @@ import AddUserForm from "@/app/components/AddUserForm";
 import ServerButton from "@/app/components/ServerButton";
 import NewGroup from "./NewGroupAction";
 import DeleteGroup from "./DeleteGroupAction";
+import NewUser from "./NewUserAction";
 
 export default async function AddShop() {
   const client = new CognitoIdentityProviderClient({
@@ -27,22 +29,20 @@ export default async function AddShop() {
   if (!shops) return <></>;
   return (
     <div className="w-full min-h-[100vh] p-4">
-      <div className="p-4 border-2 border-white rounded-lg">
-        <h1 className="text-center w-full p-4 pt-0">Add Shop</h1>
-        <AddShopForm serverAction={NewGroup} shops={shops} />
+        <div className="lg:flex lg: gap-4 ">
+          <AddShopForm serverAction={NewGroup} shops={shops} />
+          <AddUserForm shops={shops} serverAction={NewUser} />
+        </div>
         <div>
-          {shops.length > 2 && <h2 className="m-2 pt-4">All Shops</h2>}
-          <div className="flex p-2 pt-4 justify-between">
+          <h1 className="mt-5">Shops</h1>
+          <div className="flex pt-2 gap-2">
             {shops.map((shop, i) => {
               return <ServerButton shop={shop} action={DeleteGroup} key={i} />;
             })}
           </div>
         </div>
-      </div>
-      <div className="p-4 border-2 mt-4 border-white rounded-lg">
-        <h1 className="text-center w-full pb-4">Add User</h1>
-        <AddUserForm shops={shops} serverAction={NewGroup} />
-      </div>
+      
+        
     </div>
   );
 }
