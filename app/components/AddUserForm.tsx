@@ -36,13 +36,14 @@ export default function ClientForm({ serverAction, shops }: any) {
             className="text-black w-[180px] rounded-md text-sm"
             id="email"
             name="email"
+            required
           />
         </div>
         <div className="grid grid-rows-2 w-[200px] mb-4">
           <label className="text-sm ">
           Select a shop:
           </label>
-          <select className="rounded-md w-auto text-sm text-black ">
+          <select id="group" defaultValue={shops[0]} name="group" required className="rounded-md w-auto text-sm text-black ">
             {shops.map((shop: string, i: number) => {
               return (
                 <option className="text-black " key={i} value={`${shop}`}>
