@@ -24,7 +24,7 @@ export default async function NewGroup(prevState: any, formData: FormData) {
   try {
     const response = await cognitoClient.send(cognitoCommand);
   } catch (e) {
-    return { message: "error" };
+    return{message:`${e}`, status:false}
   }
 
   const s3Client = new S3Client(config);
@@ -34,8 +34,13 @@ export default async function NewGroup(prevState: any, formData: FormData) {
     body: "",
   };
   const s3command = new PutObjectCommand(input);
+  try{
+
+  } catch (e) {
+    return{message:`${e}`, status:false}
+  }
   const s3response = await s3Client.send(s3command);
 
   revalidatePath("/dashboard/Admin");
-  return{message:"added shop"}
+  return{message:"added shop", status:true}
 }

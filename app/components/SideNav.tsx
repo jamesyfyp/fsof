@@ -7,8 +7,8 @@ export default function NavMenu() {
   const menuItems = [];
   if (!session) return <></>;
   if (session?.data?.user) {
-    let type = JSON.parse(String(session.data.user.name));
-    if (type[0] == "FSOF") {
+    let role = JSON.parse(String(session.data.user.name));
+    if (role[0] === "FSOF") {
       menuItems.push("Admin");
       menuItems.push("Invoices");
     } else {
@@ -16,12 +16,13 @@ export default function NavMenu() {
       menuItems.push("All Invoice");
     }
   }
+  const buttonStyle = "block justify-center text-sm text-center p-2  m-2  border-2 border-r-4 border-b-4 border-white hover:bg-slate-600 hover:underline hover:cursor-pointer hover:text-white rounded"
   return (
-    <div className="w-[200px] min-h-[99vh] bg-slate-400 ">
+    <div className="w-[200px] min-h-[99vh] bg-slate-800 ">
       {menuItems.map((item, i) => {
         return (
           <Link
-            className="block justify-center text-center w-4/5 pt-[.75px] m-auto my-6 h-10 border-2 border-white hover:bg-black hover:text-white rounded"
+            className={buttonStyle}
             key={i}
             href={`/dashboard/${item.replaceAll(" ", "")}`}
           >
@@ -29,14 +30,14 @@ export default function NavMenu() {
           </Link>
         );
       })}
-      <button
+      <div
         onClick={() => {
           signOut();
         }}
-        className="block justify-center text-center w-4/5 pt-[.75px] m-auto my-6 h-10 border-2 border-white hover:bg-black hover:text-white rounded"
+        className={buttonStyle}
       >
         Sign Out
-      </button>
+      </div>
     </div>
   );
 }

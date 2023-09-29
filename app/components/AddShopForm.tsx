@@ -1,6 +1,6 @@
 "use client"
 import { experimental_useFormState as useFormState, experimental_useFormStatus as useFormStatus } from 'react-dom'
-import { ArrowPathIcon } from '@heroicons/react/20/solid'
+import { ArrowPathIcon, ExclamationCircleIcon } from '@heroicons/react/20/solid'
 import {useState, useEffect} from 'react'
 
 
@@ -9,15 +9,16 @@ const initialState = {
   input: ''
 }
 
-function AddShopSubmitButton() {
+function AddShopSubmitButton({disabled} : any) {
   const { pending } = useFormStatus()
- 
+  console.log(pending, disabled)
   return (
      <button
-        className=" border-2 rounded-md border-b-4 border-r-4 border-white block p-2 my-4 bg-black align-center hover:bg-green-700 disabled:text-gray-600 disabled:line-through"
+        className="row-span-1 border-2 rounded-md border-b-4 border-r-4 border-white block p-2 my-4 bg-black align-center hover:bg-green-700 disabled:text-gray-600 disabled:line-through disabled:hover:bg-red-600 active:bg-blue-500"
         type="submit"
+        disabled={(pending || disabled)}
       >
-        {pending ? <ArrowPathIcon className='animate-spin-slow h-8 w-6 mx-2'/> : "add" }
+        {pending ? <ArrowPathIcon className='animate-spin-slow h-8 w-6 mx-auto'/> : "add" }
       </button>
   )
 }
@@ -57,10 +58,14 @@ export default function ServerForm({ serverAction, shops }: any) {
         name="GroupName"
         required
       />
-      <>
-      <AddShopSubmitButton /> 
-      <p className='text-sm '>{state?.message}</p>
-      </>
+      <div className='grid grid-cols-3 gap-2'>
+        <AddShopSubmitButton disabled={buttonDisable}/> 
+        <div className='flex text-red-600 col-span-2 mt-4 ml-2'>
+          <ExclamationCircleIcon className='h-4 w-4 mt-[.5px]'/>
+          <p className='text-sm text-red-600  '>{state?.message}{error}</p>
+        </div>
+        
+      </div>
       
     </form>
   );
