@@ -1,5 +1,5 @@
 'use client'
-import { ArrowPathIcon, ExclamationCircleIcon } from '@heroicons/react/20/solid'
+import { ArrowPathIcon } from '@heroicons/react/20/solid'
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 
 export default function SubmitButton({disabled} : any) {

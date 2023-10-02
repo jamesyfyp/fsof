@@ -34,7 +34,7 @@ export default async function AddShop() {
           <AddUserForm shops={shops} serverAction={NewUser} />
         </div>
         <div>
-          <h1 className="mt-5">Shops</h1>
+          <h1 className="mt-5">Remove Shop</h1>
           <div className="flex pt-2 gap-2">
             {shops.map((shop, i) => {
               return <ServerButton shop={shop} action={DeleteGroup} key={i} />;

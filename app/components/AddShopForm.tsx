@@ -1,7 +1,7 @@
 "use client"
 import { experimental_useFormState as useFormState, experimental_useFormStatus as useFormStatus } from 'react-dom'
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import SubmitButton from './FormComponents/SubmitButton'
 
 
@@ -32,7 +32,6 @@ export default function ServerForm({ serverAction, shops }: any) {
     });
   }
     
-  
   return (
     <form
       action={formAction}
@@ -42,6 +41,11 @@ export default function ServerForm({ serverAction, shops }: any) {
       <h1 className="w-full mb-2">Add Shop</h1>
       <input
         value={input}
+        onInvalid={(e)=>{
+              e.preventDefault();
+              setError("a valid input required");
+              setButtonDisable(true);
+            }}
         onChange={(e)=>{setInput(e.target.value);errorState(e)}}
         type="text"
         className="text-black rounded-md"

@@ -19,7 +19,13 @@ export default async function DeleteGroup(formData: FormData) {
   };
 
   const cognitoCommand = new DeleteGroupCommand(inputGroupName);
+
+  try {
   const cognitoResponse = await cognitoClient.send(cognitoCommand);
+  } catch (e) {
+
+  }
+  
 
   const s3Client = new S3Client(config);
   const input = {
@@ -28,7 +34,14 @@ export default async function DeleteGroup(formData: FormData) {
     body: "",
   };
   const s3command = new DeleteObjectCommand(input);
+  
+
+  try {
   const s3response = await s3Client.send(s3command);
+
+  } catch (e) {
+
+  }
 
   revalidatePath("/dashboard/AddShop");
 }
