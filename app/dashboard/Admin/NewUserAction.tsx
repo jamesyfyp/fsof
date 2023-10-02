@@ -9,7 +9,7 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { revalidatePath } from "next/cache";
 
-export default async function NewUser(formData: FormData) {
+export default async function NewUser(prevState: any, formData: FormData) {
   console.log(formData)
   const config = {
     region: "us-east-2",
@@ -26,9 +26,8 @@ export default async function NewUser(formData: FormData) {
   
   try {    
     let createUserResponse = await cognitoClient.send(createCommand)
-    console.log(createUserResponse)
   } catch (e) {
-
+    return{message:`${e}`, status:false}
   }
 
   const inputAddUserToGroup: AdminAddUserToGroupCommandInput = {
@@ -41,11 +40,10 @@ export default async function NewUser(formData: FormData) {
   
   try {
     let addToGroupResponse = await cognitoClient.send(addUserToGroupCommand)
-    console.log(addToGroupResponse)
   } catch (e) {
-    console.log(e)
+    return{message:`${e}`, status:false}
   }
   
-
-  revalidatePath("/dashboard/AddShop");
+  revalidatePath("/dashboard/Admin");
+  return{message:"added user", status:true}
 }
