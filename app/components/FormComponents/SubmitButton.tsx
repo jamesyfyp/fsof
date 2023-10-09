@@ -4,6 +4,7 @@ import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 
 export default function SubmitButton({disabled} : any) {
   const { pending } = useFormStatus()
+  console.log(useFormStatus())
   return (
      <button
         className="row-span-1 border-2 rounded-md border-b-4 border-r-4 border-white block p-2 my-4 bg-black align-center hover:bg-green-700 disabled:text-gray-600 disabled:line-through disabled:hover:bg-red-600 active:bg-blue-500"

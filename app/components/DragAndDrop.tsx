@@ -1,7 +1,10 @@
 "use client"
 import React, {useCallback, useState, useEffect, Key} from 'react'
+import { experimental_useFormState as useFormState, experimental_useFormStatus as useFormStatus } from 'react-dom'
 import {useDropzone} from 'react-dropzone'
 import Image from "next/image"
+import SubmitButton from './FormComponents/SubmitButton'
+import AddInvoice from '../dashboard/Shop/AddInvoice/AddInvoiceAction'
 
 function Preview ({files}: any) {
     return(
@@ -21,7 +24,15 @@ function Preview ({files}: any) {
     )
 }
 
+const initialState = {
+  message: null,
+  status: true,
+  input: ''
+}
+
+
 export default function DragAndDrop() {
+    const [state, formAction] = useFormState(AddInvoice, initialState)
     const [files, setFiles] : any = useState([]);
     const {getRootProps, getInputProps, isDragActive} = useDropzone({
     accept: {
@@ -53,8 +64,14 @@ export default function DragAndDrop() {
                     </div>
                 )}
             </div>
-            {files.length >= 1 && (
-                <Preview files={files}/>
+            { files.length >= 1 && (
+                <>
+                    <Preview files={files}/>
+                    <form action={formAction}>
+                        <input name="pdf" id="pdf" readOnly={true} className='hidden' type='pdf' value={files[0]}/>
+                        <SubmitButton disabled={false} />
+                    </form>
+                </>
             )}
         </div>   
     )
