@@ -1,43 +1,49 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { Key } from "react";
+
+interface NavLink {
+  text: string;
+  route: string;
+}
 
 export default function NavMenu() {
   const session = useSession();
-  const menuItems = [];
+  const menuItems: NavLink[] = [];
   if (!session) return <></>;
   if (session?.data?.user) {
-    let type = JSON.parse(String(session.data.user.name));
-    if (type[0] == "FSOF") {
-      menuItems.push("Add Shop");
-      menuItems.push("Add User");
-      menuItems.push("Invoices");
+    let role = JSON.parse(String(session.data.user.name));
+    if (role[0] === "FSOF") {
+      menuItems.push({text:"Admin", route:"/dashboard/admin"});
+      menuItems.push({text:"Invoices", route:"/dashboard/Invoices"});
     } else {
-      menuItems.push("New Invoice");
-      menuItems.push("All Invoice");
+      menuItems.push({text:"Add Invoice", route:"/dashboard/Shop/AddInvoice"});
+      menuItems.push({text:"All Invoices", route:"/dashboard/Shop/Invoices"});
     }
   }
+  const buttonStyle = "block justify-center text-sm text-center p-2  m-2  border-2 border-r-4 border-b-4 border-white hover:bg-slate-600 hover:underline hover:cursor-pointer hover:text-white rounded"
   return (
-    <div className="w-[200px] min-h-[99vh] bg-slate-400 ">
-      {menuItems.map((item, i) => {
+    <div className="w-[200px] min-h-[99vh] bg-slate-800 ">
+      {menuItems.map((item: NavLink, i: Key) => {
         return (
           <Link
-            className="block justify-center text-center w-4/5 pt-[.75px] m-auto my-6 h-10 border-2 border-white hover:bg-black hover:text-white rounded"
+            className={buttonStyle}
             key={i}
-            href={`/dashboard/${item.replaceAll(" ", "")}`}
+            href={item.route}
           >
-            {item}
+            {item.text}
           </Link>
         );
       })}
-      <button
+      <div
         onClick={() => {
           signOut();
         }}
-        className="block justify-center text-center w-4/5 pt-[.75px] m-auto my-6 h-10 border-2 border-white hover:bg-black hover:text-white rounded"
+        className={buttonStyle}
       >
         Sign Out
-      </button>
+      </div>
     </div>
   );
 }

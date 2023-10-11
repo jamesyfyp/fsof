@@ -1,4 +1,5 @@
 "use server";
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
 import {
   CognitoIdentityProviderClient,
   CreateGroupCommand,
@@ -7,7 +8,7 @@ import {
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { revalidatePath } from "next/cache";
 
-export default async function NewGroup(formData: FormData) {
+export default async function NewGroup(prevState: any, formData: FormData) {
   const config = {
     region: "us-east-2",
   };
@@ -24,8 +25,7 @@ export default async function NewGroup(formData: FormData) {
   try {
     const response = await cognitoClient.send(cognitoCommand);
   } catch (e) {
-    console.log(e);
-    return { error: "error" };
+    return{message:`${e}`, status:false}
   }
 
   const s3Client = new S3Client(config);
@@ -35,7 +35,14 @@ export default async function NewGroup(formData: FormData) {
     body: "",
   };
   const s3command = new PutObjectCommand(input);
+  try{
+
+  } catch (e) {
+    return{message:`${e}`, status:false}
+  }
   const s3response = await s3Client.send(s3command);
 
-  revalidatePath("/dashboard/AddShop");
+  revalidatePath("/dashboard/Admin");
+  
+  return{message:"added shop", status:true}
 }

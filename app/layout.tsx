@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
-import { Inter } from "@next/font/google";
+import { Lato } from "next/font/google";
 // These styles apply to every route in the application
 import "./globals.css";
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+const inter = Lato({
+  weight: ["400"],
+  subsets: ["latin-ext"]
 });
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -18,7 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable}`}>
+    <html lang="en" className={`${inter.className}`}>
+      
       <body>{children}</body>
     </html>
   );

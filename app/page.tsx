@@ -1,91 +1,122 @@
 "use client";
-import { useRef, useEffect, Component, ReactNode } from "react";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useInView,
-  useTransform,
-  MotionValue,
-} from "framer-motion";
+import { useRef, useEffect, Component, ReactNode, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import caroselData from "./lpCarouselData"
+
 import Image from "next/image";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
 
-function useParallax(value: MotionValue<number>, distance: number) {
-  return useTransform(value, [0, 1], [-distance, distance]);
-}
 
-function Logo() {
-  const logoRef = useRef(null);
-
-  return (
-    <>
-      <motion.div
-        ref={logoRef}
-        className="relative m-auto aspect-square h-4/5 w-4/5 lg:h-4/5 lg:w-auto object-contain"
+function TextBox({heading, text}: any) {
+  return(
+    <AnimatePresence>
+      <motion.div 
+        className="h-full w-full p-4 bg-gradient-to-b rounded-md from-black/70  to-white/20 text-center"
       >
-        <Image
-          className="object-fit: contain"
-          alt="fleet services of florida logo"
-          src="/fleetServicesOfFloridaLogo.png"
-          fill
-        />
+        <motion.h3 key={heading}
+        initial={{ y:-100, opacity: 0}}
+        animate={{ y:0, opacity: 1 }}
+        exit={{ y:-100, opacity: 0 }}
+        transition={{ duration: 0.3 }} className="font-black text-2xl">{heading}</motion.h3>
+        <motion.p
+        key={text}
+        initial={{ y:-100, opacity: 0}}
+        animate={{ y:0, opacity: 1 }}
+        exit={{ y:-100, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+         className="m-10">{text}</motion.p>
       </motion.div>
-      <h2 className=" text-l sm:text-xl md:text-2xl lg:text-3xl text-black font-bold pt-2 text-center">
-        The Worlds Finest Fleet Maintenance Provider
-      </h2>
-    </>
-  );
+    </AnimatePresence>
+    
+  )
 }
-
-function Services() {
-  return <div className="h-full w-full"></div>;
-}
-
-function Logo3() {
-  return <h2>Asss</h2>;
-}
-
-function Group({ id, children }: { id: number; children: ReactNode }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false });
-  const { scrollYProgress } = useScroll({ target: ref });
-  const y = useParallax(scrollYProgress, -50);
-  useEffect(() => {}, [scrollYProgress]);
+function ImageSlider(){
+  const [positionIndex, setPositionIndex] = useState(0);
   return (
-    <section className="m-auto  sm:w-full md:w-4/5 h-screen py-[50px] ">
-      <motion.div
-        style={{
-          y,
-          opacity: 0,
-        }}
-        whileInView={{ opacity: 1 }}
-        className={`m-auto w-full h-4/5 bg-teal-100`}
-        ref={ref}
-      >
-        {children}
-      </motion.div>
-    </section>
-  );
+    <motion.div  className="col-start-2 col-end-12 grid grid-cols-2 h-[400px] gap-20">
+        <TextBox heading={caroselData[positionIndex].heading} text={caroselData[positionIndex].text} />
+        <motion.div 
+          className="h-full w-full p-4">
+          <AnimatePresence>
+            <div className="m-auto bg-stone-300/10 rounded-md h-[300px] w-[300px]">
+               <motion.div
+              key={caroselData[positionIndex].svg}
+              initial={{ y:100, opacity: 0}}
+              animate={{ y:0, opacity: 1 }}
+              exit={{ y:-100, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Image  width={300} height={300} alt={caroselData[positionIndex].heading} src={caroselData[positionIndex].svg}/> 
+            </motion.div> 
+            </div>
+          </AnimatePresence>
+            {positionIndex != 0 && positionIndex != caroselData.length-1 ? 
+            (
+              <div className="w-[75px] m-auto mt-[20px]  h-10 rounded-full grid grid-cols-2">
+                <button onClick={(e)=>{e.preventDefault();setPositionIndex(positionIndex-1)}} className="bg-stone-300  hover:bg-stone-400/40  rounded-l-full"><ArrowLeftIcon className="p-2"/></button>
+                <button onClick={(e)=>{e.preventDefault();setPositionIndex(positionIndex+1)}} className="bg-stone-300  hover:bg-stone-400/40   rounded-r-full"><ArrowRightIcon className="p-2"/></button>
+              </div>
+            ) 
+            : 
+            positionIndex == 0 ?
+            (
+              <div className="w-full flex justify-center">
+                <button onClick={(e)=>{e.preventDefault();setPositionIndex(positionIndex+1)}} className="w-[50px] m-auto mt-[20px] bg-stone-300 h-10 rounded-full hover:bg-stone-400/40">
+                  <ArrowRightIcon className="h-10 w-10 m-auto p-2"/>
+                </button>
+              </div>
+              
+            ) : 
+            (
+              <div className="w-full flex justify-center">
+                <button onClick={(e)=>{e.preventDefault();setPositionIndex(positionIndex-1)}}className="w-[50px] mx-auto mt-[20px] bg-stone-300 h-10 rounded-full hover:bg-stone-400/40">
+                  <ArrowLeftIcon className="h-10 w-10 m-auto p-2"/>
+                </button>
+              </div>
+            )
+            }
+        </motion.div>
+    </motion.div>
+  )
 }
-
-let display = [<Logo />, <Services />, <Logo3 />];
 
 export default function Home() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
   return (
-    <div className="">
-      {display.map((child, i) => (
-        <Group key={i} id={i}>
-          {child}
-        </Group>
-      ))}
-      <motion.div style={{ scaleX }} />
-    </div>
+    <>
+      <div className="relative grid w-[1100px] m-auto  grid-cols-12 bg-gradient-to-b from-gray-400 by-gray-500 by-gray-900 to-black">
+      <div className="col-span-12  mt-10">
+        <h2 className="text-center font-black text-5xl p-0">OverWhelmed by Fleet Maintenance?</h2>
+        <h2 className="text-center font-black text-5xl p-0 mt-5">We've Got You Covered!</h2>
+        <div className="bg-[url('/HeroImg.svg')] h-[600px] bg-transparent w-full bg-cover bg-center" /> 
+        <motion.div 
+          whileHover={{
+            scale: 1.1,
+            transition: { duration: .3 },
+          }}
+          className="absolute bottom-[-75px] right-[350px] bg-stone-200/40 m-auto  mt-10 h-[150px] w-[400px] rounded-md grid grid-cols-2"
+        >
+          <button className="bg-stone-200 text-black m-12 rounded-sm hover:bg-stone-300">
+            Contact Us
+          </button>
+          <p className="m-auto text-sm">
+            Ready to Get Started? Explore Pricing and Dive into Our Comprehensive Fleet Maintenance Program!
+          </p>
+        </motion.div>
+      </div>
+      <div className="h-[20px]"/>
+      </div>
+      <div className="grid w-[1100px] m-auto py-10 mt-20  grid-cols-12 bg-gradient-to-b from-stone-300  to-emerald-900 rounded-md ">
+        <div className="col-span-12 pb-10">
+          <h3 className="text-center font-black text-5xl p-0 text-black">
+            Explore Our Comprehensive
+          </h3>
+          <h3 className="text-center font-black text-5xl p-0 text-black mt-5">
+            Maintenance Program
+          </h3>
+        </div>
+        <ImageSlider />
+      </div>
+      <div className="h-[40px]"/>
+    </>
   );
 }
