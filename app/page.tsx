@@ -86,7 +86,7 @@ export default function Home() {
       <div className="relative grid w-[1100px] m-auto  grid-cols-12 bg-gradient-to-b from-gray-400 by-gray-500 by-gray-900 to-black">
       <div className="col-span-12  mt-10">
         <h2 className="text-center font-black text-5xl p-0">OverWhelmed by Fleet Maintenance?</h2>
-        <h2 className="text-center font-black text-5xl p-0 mt-5">We've Got You Covered!</h2>
+        <h2 className="text-center font-black text-5xl p-0 mt-5">We&apos;ve Got You Covered!</h2>
         <div className="bg-[url('/HeroImg.svg')] h-[600px] bg-transparent w-full bg-cover bg-center" /> 
         <motion.div 
           whileHover={{
