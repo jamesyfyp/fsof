@@ -15,7 +15,7 @@ export default function NavMenu() {
   if (session?.data?.user) {
     let role = JSON.parse(String(session.data.user.name));
     if (role[0] === "FSOF") {
-      menuItems.push({text:"Admin", route:"/dashboard/admin"});
+      menuItems.push({text:"Admin", route:"/dashboard/Admin"});
       menuItems.push({text:"Invoices", route:"/dashboard/Invoices"});
     } else {
       menuItems.push({text:"Add Invoice", route:"/dashboard/Shop/AddInvoice"});
