@@ -6,7 +6,8 @@ import SubmitButton from './FormComponents/SubmitButton';
 
 const initialState = {
   message: null,
-  input: ''
+  input: '', 
+  status: true
 }
 
 export default function ClientForm({ serverAction, shops }: any) {
@@ -70,7 +71,7 @@ export default function ClientForm({ serverAction, shops }: any) {
       </div>
       <div className='grid grid-cols-3 gap-2 '>
         <SubmitButton disabled={buttonDisable}/>
-        {(buttonDisable || state.status) && (
+        {(buttonDisable || !state.status) && (
           <p className='border-2 border-red-600 border-r-4 border-b-4 rounded-md bg-red-600/20 col-span-2 my-4 p-2 py-4 ml-2 text-sm text-red-600  flex'> <ExclamationCircleIcon className='h-4 w-4 mt-[.5px]'/><span className='w-2'/>{state?.message ? state?.message : error}</p>
         )}   
         
