@@ -58,7 +58,7 @@ export default function DragAndDrop() {
                             {
                                 isDragActive ?
                                 <p className='text-sm m-auto text-center'>Drop the files here ...</p> :
-                                <p className='text-sm m-auto text-center'>Drag 'n' drop an invoice here, or click to select files</p>
+                                <p className='text-sm m-auto text-center'>Drag and drop an invoice here, or click to select files</p>
                             }
                         </div>
                     </div>
