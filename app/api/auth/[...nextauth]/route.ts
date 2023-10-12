@@ -3,13 +3,13 @@ import CognitoProvider from "next-auth/providers/cognito"
 
 const clientId: string = `${process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID ? process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID : ''}`
 const clientSecret: string = `${process.env.NEXT_PUBLIC_COGNITO_CLIENT_SECRET ? process.env.NEXT_PUBLIC_COGNITO_CLIENT_SECRET : ''}`
-const issuer: string = `${ process.env.NEXT_PUBLIC_COGNITO_ISSUER ? process.env.NEXT_PUBLIC_COGNITO_ISSUER : ''}`
+const issuer: string = `${process.env.NEXT_PUBLIC_COGNITO_ISSUER ? process.env.NEXT_PUBLIC_COGNITO_ISSUER : ''}`
 const handler = NextAuth({
-  providers: [
+    providers: [
         CognitoProvider({
             clientId,
-            clientSecret ,
-            issuer 
+            clientSecret,
+            issuer
         }),
     ],
     theme: {
@@ -19,14 +19,15 @@ const handler = NextAuth({
         buttonText: "#fff" // Hex color code
     },
     callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-        user.name = JSON.stringify(profile['cognito:groups'])
-        return true
+        async signIn({ user, account, profile, email, credentials }) {
+            //@ts-ignore
+            user.name = JSON.stringify(profile['cognito:groups'])
+            return true
+        }
     }
-}
-    
-   
-    
+
+
+
 })
 
 export { handler as GET, handler as POST }
