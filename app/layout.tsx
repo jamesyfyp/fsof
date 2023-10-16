@@ -19,8 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.className}`}>
-      
-      <body>{children}</body>
+      <body >
+        <div className="relative w-full max-w-screen-xl h-screen mx-auto bg-gradient-to-b from-gray-400 by-gray-500 by-gray-900 to-black overflow-y-auto">
+          <div className="grid grid-cols-12">
+            {children}
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
