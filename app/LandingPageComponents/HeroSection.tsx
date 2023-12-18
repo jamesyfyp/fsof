@@ -8,7 +8,7 @@ const cardData = [
     },
      {
         headline: "Need Reliable Service Providers?",
-        text: "Quality service providers are in high demand, leaving you in a bind. Dealerships often come at a premium, and empty shops can raise doubts. We offer a trusted network of reliable providers."
+        text: "Quality service providers are in high demand, leaving you in a bind. Dealerships often come at a premium, and empty shops can raise doubts. We offer a trusted network of reliable service providers."
     },
      {
         headline: "Can’t Price Check Every Invoice?",
@@ -21,10 +21,13 @@ function Card({ headline, text, index }: { headline: string; text: string; index
         <motion.div 
             initial={{ opacity: 0, y: -100  }}
             animate={{ opacity: 1, y: 0}}
-            transition={{delay: .25 + (index/3)}}
-            
+            transition={{delay: .1 + (index/3)}}
+            whileHover={{
+                scale: 1.05,
+                transition: { duration: .2 },
+            }}
 
-        className="text-center bg-stone-300/60 mt-5 h-[300px] rounded-md mt-[-170px]">
+        className="text-center bg-stone-400/80 hover:bg-stone-600/90 mt-5 h-[300px] rounded-xl mt-[-170px] border-2 border-white drop-shadow-xl">
             <h2 className="text-3xl font-black my-5">{headline}</h2>
             <p className="text-lg  mx-5">{text}</p>
         </motion.div>
@@ -34,7 +37,7 @@ function Card({ headline, text, index }: { headline: string; text: string; index
 export default function HeroSection () {
 
     return (
-        <div className=" col-span-12 bg-[url('/HeroImg.svg')] h-[700px] mt-[200px] bg-transparent w-full bg-cover bg-center grid grid-cols-3 px-10 gap-10 " >
+        <div className=" col-span-12 bg-[url('/HeroImg.svg')] h-[700px] mt-[200px] bg-transparent w-full bg-cover bg-center grid grid-cols-3 px-10 gap-10" >
             {cardData.map((data, i) => <Card key={i} index={i} headline={data.headline} text={data.text}/>
             )}
         </div>
